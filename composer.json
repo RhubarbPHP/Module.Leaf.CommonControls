@@ -1,0 +1,26 @@
+{
+  "name": "rhubarbphp/module-leaf-common-controls",
+  "description": "Common form control leaves for the leaf module of Rhubarb",
+  "keywords": [
+    "mvp",
+    "presenter",
+    "leaf",
+    "rhubarb",
+    "php",
+    "framework"
+  ],
+  "homepage": "http://www.rhubarbphp.com/",
+  "license": "Apache-2.0",
+  "autoload": {
+    "psr-4": {
+      "Rhubarb\\Leaf\\Controls": "src/",
+      "Rhubarb\\Leaf\\Controls\\Tests\\": "tests/unit/"
+    }
+  },
+  "require": {
+    "rhubarbphp/module-leaf": "dev-ac/MajorRefactor"
+  },
+  "require-dev": {
+    "codeception/codeception": "2.1.*"
+  }
+}
