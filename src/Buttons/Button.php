@@ -3,7 +3,9 @@
 namespace Rhubarb\Leaf\Controls\Common\Buttons;
 
 use Rhubarb\Crown\Events\Event;
+use Rhubarb\Leaf\Leaves\Controls\Control;
 use Rhubarb\Leaf\Leaves\Leaf;
+use Symfony\Component\EventDispatcher\Tests\CallableClass;
 
 /**
  * The Button leaf is used to raise action events.
@@ -11,7 +13,7 @@ use Rhubarb\Leaf\Leaves\Leaf;
  * Note, it's not strictly a control as it doesn't support binding for example but most people still
  * consider a button as an interface control.
  */
-class Button extends Leaf
+class Button extends Control
 {
     /**
      * Raised when the button is pressed.
@@ -24,6 +26,18 @@ class Button extends Leaf
      * @var ButtonModel
      */
     protected $model;
+
+    public function __construct($name, $text = "", callable $pressedCallback = null)
+    {
+        parent::__construct($name);
+
+        $this->model->text = $text;
+        $this->buttonPressedEvent = new Event();
+
+        if ($pressedCallback){
+            $this->model->buttonPressedEvent->attachHandler($pressedCallback);
+        }
+    }
 
     protected function getViewClass()
     {
