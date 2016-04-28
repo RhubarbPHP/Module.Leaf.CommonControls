@@ -13,8 +13,8 @@
   "license": "Apache-2.0",
   "autoload": {
     "psr-4": {
-      "Rhubarb\\Leaf\\Controls\\": "src/",
-      "Rhubarb\\Leaf\\Controls\\Tests\\": "tests/unit/"
+      "Rhubarb\\Leaf\\Controls\\Common\\": "src/",
+      "Rhubarb\\Leaf\\Controls\\Common\\Tests\\": "tests/unit/"
     }
   },
   "require": {
