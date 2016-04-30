@@ -10,11 +10,8 @@ class TextBoxView extends ControlView
 
     protected function printViewContent()
     {
-        $classes = $this->model->getClassAttribute();
-        $otherAttributes = $this->model->getHtmlAttributes();
-
         ?>
-        <input type="text" name="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->value);?>"<?=$classes.$otherAttributes;?> />
+        <input type="text" <?=$this->getNameValueClassAndAttributeString();?>/>
         <?php
     }
 }
