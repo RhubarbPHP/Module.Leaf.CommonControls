@@ -35,7 +35,9 @@ class Button extends Control
         $this->buttonPressedEvent = new Event();
 
         if ($pressedCallback){
-            $this->model->buttonPressedEvent->attachHandler($pressedCallback);
+            $this->model->buttonPressedEvent->attachHandler(function() use ($pressedCallback){
+                $this->runBeforeRender($pressedCallback);
+            });
         }
     }
 
