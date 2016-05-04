@@ -10,4 +10,9 @@ class TextBox extends Control
     {
         return TextBoxView::class;
     }
+
+    public function setMaxLength($maxLength)
+    {
+        $this->addHtmlAttribute("maxlength", $maxLength);
+    }
 }
