@@ -43,7 +43,7 @@ class SelectionControlView extends ControlView
 
     protected function isValueSelected($value)
     {
-        foreach ($this->model->selectedItems as $item) {
+        foreach ($this->model->value as $item) {
             if ($item->value == $value) {
                 return true;
             }

@@ -8,13 +8,6 @@ use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 class SelectionControlModel extends ControlModel
 {
     /**
-     * The array of selected items.
-     *
-     * @var array
-     */
-    public $selectedItems = [];
-
-    /**
      * The array of items available for selection
      *
      * @var array

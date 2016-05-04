@@ -224,12 +224,26 @@ class SelectionControl extends Control
             $selectedItems[] = $item;
         }
 
-        $this->model->selectedItems = $selectedItems;
+        $this->model->value = $selectedItems;
     }
 
-    public function setBindingValue($bindingValue)
+    public function setValue($bindingValue)
     {
-        parent::setBindingValue($this->buildDataArrayFromSelectedList($bindingValue));
+        if (!is_array($bindingValue)){
+            $bindingValue = [$bindingValue];
+        }
+
+        $this->setSelectedItems($bindingValue);
+    }
+
+    public function getValue()
+    {
+        if ($this->supportsMultipleSelection()){
+            // Value will be an array
+            return $this->buildDataArrayFromSelectedList($this->model->value);
+        } else {
+            return $this->model->value;
+        }
     }
 
     private function buildDataArrayFromSelectedList($list)
