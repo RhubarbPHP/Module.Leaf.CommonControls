@@ -10,6 +10,8 @@ class ButtonModel extends ControlModel
 {
     public $text = "Submit";
 
+    public $confirmMessage = "";
+
     /**
      * @var Event
      */

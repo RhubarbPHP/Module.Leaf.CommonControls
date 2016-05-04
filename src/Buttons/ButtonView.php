@@ -2,9 +2,10 @@
 
 namespace Rhubarb\Leaf\Controls\Common\Buttons;
 
+use Rhubarb\Crown\Deployment\DeploymentPackage;
 use Rhubarb\Crown\Request\WebRequest;
 use Rhubarb\Leaf\Leaves\Controls\ControlView;
-use Rhubarb\Leaf\Views\View;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class ButtonView extends ControlView
 {
@@ -18,8 +19,10 @@ class ButtonView extends ControlView
         $classes = $this->model->getClassAttribute();
         $otherAttributes = $this->model->getHtmlAttributes();
 
+        $confirmAttribute = ($this->model->confirmMessage != "") ? ' data-confirm-message="'.htmlentities($this->model->confirmMessage).'"' : '';
+
         ?>
-        <input type="submit" name="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes;?> />
+        <input type="submit" name="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes.$confirmAttribute;?> />
         <?php
     }
 
@@ -30,5 +33,23 @@ class ButtonView extends ControlView
         if ($value != null){
             $this->model->buttonPressedEvent->raise();
         }
+    }
+
+    /**
+     * If the leaf requires a view bridge this returns it's name.
+     *
+     * @return string|bool
+     */
+    protected function getViewBridgeName()
+    {
+        return "ButtonViewBridge";
+    }
+
+    /**
+     * @return DeploymentPackage
+     */
+    public function getDeploymentPackage()
+    {
+        return new LeafDeploymentPackage(__DIR__."/ButtonViewBridge.js");
     }
 }

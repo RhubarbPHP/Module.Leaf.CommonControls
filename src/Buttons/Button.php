@@ -41,6 +41,11 @@ class Button extends Control
         }
     }
 
+    public function setConfirmMessage($confirmMessage)
+    {
+        $this->model->confirmMessage = $confirmMessage;
+    }
+
     protected function getViewClass()
     {
         return ButtonView::class;
