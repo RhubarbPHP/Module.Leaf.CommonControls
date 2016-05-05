@@ -364,7 +364,7 @@ searchControl.prototype.itemSelected = function (result) {
 };
 
 searchControl.prototype.setInternalValue = function (value) {
-    this.element.find('input[name="' + this.presenterPath + '"]').val(value);
+    this.element.find('input[name="' + this.leafPath + '"]').val(value);
     this.changeState('selected');
 };
 

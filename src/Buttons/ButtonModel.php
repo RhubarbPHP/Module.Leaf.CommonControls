@@ -13,6 +13,13 @@ class ButtonModel extends ControlModel
     public $confirmMessage = "";
 
     /**
+     * True to make the button raise the event using an XHR request.
+     * 
+     * @var bool
+     */
+    public $useXhr = false;
+
+    /**
      * @var Event
      */
     public $buttonPressedEvent;

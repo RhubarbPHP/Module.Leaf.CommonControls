@@ -27,19 +27,24 @@ class Button extends Control
      */
     protected $model;
 
-    public function __construct($name, $text = "", callable $pressedCallback = null)
+    public function __construct($name, $text = "", callable $pressedCallback = null, $useXhr = false)
     {
         parent::__construct($name);
 
         $this->model->text = $text;
+        $this->model->useXhr = $useXhr;
         $this->buttonPressedEvent = new Event();
 
         if ($pressedCallback){
-            $this->model->buttonPressedEvent->attachHandler(function() use ($pressedCallback){
-                $this->runBeforeRender($pressedCallback);
-            });
+            $this->buttonPressedEvent->attachHandler($pressedCallback);
         }
     }
+
+    public function runBeforeRenderCallbacks()
+    {
+        parent::runBeforeRenderCallbacks();
+    }
+
 
     public function setConfirmMessage($confirmMessage)
     {
@@ -55,7 +60,9 @@ class Button extends Control
     {
         $model = new ButtonModel();
         $model->buttonPressedEvent->attachHandler(function(...$arguments){
-            $this->buttonPressedEvent->raise(...$arguments);
+            $this->runBeforeRender(function() use ($arguments){
+                $this->buttonPressedEvent->raise(...$arguments);
+            });
         });
 
         return $model;

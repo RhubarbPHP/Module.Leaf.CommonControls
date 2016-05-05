@@ -20,9 +20,10 @@ class ButtonView extends ControlView
         $otherAttributes = $this->model->getHtmlAttributes();
 
         $confirmAttribute = ($this->model->confirmMessage != "") ? ' data-confirm-message="'.htmlentities($this->model->confirmMessage).'"' : '';
+        $xhrAttribute = ($this->model->useXhr) ? ' xmlrpc="yes"' : '';
 
         ?>
-        <input type="submit" name="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes.$confirmAttribute;?> />
+        <input type="submit" name="<?=$this->model->leafPath;?>" id="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes.$confirmAttribute.$xhrAttribute;?> />
         <?php
     }
 

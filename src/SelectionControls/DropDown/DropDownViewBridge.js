@@ -6,24 +6,25 @@ var dropDown = function (presenterPath) {
     }
 
     // As this view bridge doesn't carry a hidden state we need to build
-    // the SelectedItems. Note the item jquery data entry exists due to
-    // presence of the data-item attribute on the option tag.
+    // the SelectedItems.
     var selectedItems = [];
 
-    this.element.find("option").each(function () {
-        if (!$(this).data("item")) {
-            $(this).data("item", {value: this.value, label: this.text});
+    this.selectAndIterateElements("option",function(item) {
+        if (item.getAttribute("data-item") != null) {
+            item.data = JSON.parse(item.getAttribute("data-item"));
+        } else {
+            item.data =  {value: this.value, label: this.text};
         }
 
-        if (this.selected) {
-            selectedItems.push($(this).data('item'));
+        if (item.selected) {
+            selectedItems.push(item.data);
         }
     });
 
     this.model.SelectedItems = selectedItems;
 
     // hasAttribute would be better - but this isn't IE 7 compatible
-    this.supportsMultipleSelection = ( this.element[0].getAttribute("multiple") != null );
+    this.supportsMultipleSelection = ( this.viewNode.getAttribute("multiple") != null );
 };
 
 dropDown.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlViewBridge();
@@ -50,9 +51,9 @@ dropDown.spawn = function (spawnSettings, viewIndex, parentPresenterPath) {
 dropDown.prototype.valueChanged = function () {
     var selectedItems = [];
 
-    this.element.find("option").each(function () {
-        if (this.selected) {
-            selectedItems.push($(this).data('item'));
+    this.selectAndIterateElements("option", function(option) {
+        if (option.selected) {
+            selectedItems.push(option.data);
         }
     });
 
@@ -63,23 +64,23 @@ dropDown.prototype.valueChanged = function () {
 };
 
 dropDown.prototype.getDisplayView = function () {
-    return $("option:selected", this.element).text();
+    return this.viewNode.querySelector("option:checked").innerText;
 };
 
 dropDown.prototype.setCurrentlyAvailableSelectionItems = function (items) {
-    var oldValue = this.element.val();
-    this.element.html('');
+    var oldValue = this.viewNode.value;
+    this.viewNode.innerHTML = '';
 
     for (var i in items) {
         var item = items[i];
         var itemDom = $('<option value="' + item.value + '">' + item.label + '</option>');
 
-        itemDom.data("item", item);
+        itemDom.data = item;
 
-        this.element.append(itemDom);
+        this.viewNode.childNodes.append(itemDom);
     }
 
-    this.element.val(oldValue);
+    this.viewNode.value = oldValue;
 };
 
 window.rhubarb.viewBridgeClasses.DropDownViewBridge = dropDown;
