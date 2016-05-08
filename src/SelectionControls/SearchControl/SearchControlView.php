@@ -21,26 +21,28 @@ namespace Rhubarb\Leaf\Controls\Common\SelectionControls\SearchControl;
 require_once __DIR__ . "/../SelectionControlView.php";
 
 use Rhubarb\Leaf\Controls\Common\SelectionControls\SelectionControlView;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class SearchControlView extends SelectionControlView
 {
     public function printViewContent()
     {
-        print '<input type="hidden" name="' . $this->getIndexedPresenterPath() . '" />';
+        print '<input type="hidden" name="' . $this->model->leafPath . '" />';
     }
 
-    protected function getClientSideViewBridgeName()
+    protected function getViewBridgeName()
     {
         return "SearchControl";
     }
 
     public function getDeploymentPackage()
     {
-        $package = parent::getDeploymentPackage();
-        $package->resourcesToDeploy[] = __DIR__ . "/search-control.js";
-        $package->resourcesToDeploy[] = __DIR__ . "/SearchControl.css";
-        $package->resourcesToDeploy[] = __DIR__ . "/Resources/ajax-loader.gif";
-
+        $package = new LeafDeploymentPackage(
+            __DIR__ . "/SearchControlViewBridge.js",
+            __DIR__ . "/SearchControl.css",
+            __DIR__ . "/Resources/ajax-loader.gif"
+        );
+        
         return $package;
     }
 }

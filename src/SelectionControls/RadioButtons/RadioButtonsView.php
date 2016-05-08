@@ -21,6 +21,7 @@ namespace Rhubarb\Leaf\Controls\Common\SelectionControls\RadioButtons;
 require_once __DIR__ . '/../Sets/SetSelectionControlView.php';
 
 use Rhubarb\Leaf\Controls\Common\SelectionControls\Sets\SetSelectionControlView;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class RadioButtonsView extends SetSelectionControlView
 {
@@ -32,7 +33,7 @@ class RadioButtonsView extends SetSelectionControlView
             $checked = ' checked="checked"';
         }
 
-        return '<input type="radio" name="' . htmlentities($this->getIndexedPresenterPath()) . '" value="' . htmlentities(
+        return '<input type="radio" name="' . htmlentities($this->model->leafPath) . '" value="' . htmlentities(
             $value
         ) . '" id="' . htmlentities($this->getInputId($name, $value)) . '"' . $checked . '>';
     }
@@ -42,15 +43,14 @@ class RadioButtonsView extends SetSelectionControlView
         return parent::getItemOptionHtml($value, $label, $item, $classSuffix);
     }
 
-    protected function getClientSideViewBridgeName()
+    protected function getViewBridgeName()
     {
         return 'RadioButtonsViewBridge';
     }
 
     public function getDeploymentPackage()
     {
-        $package = parent::getDeploymentPackage();
-        $package->resourcesToDeploy[] = __DIR__ . '/RadioButtonsViewBridge.js';
+        $package = new LeafDeploymentPackage(__DIR__ . '/RadioButtonsViewBridge.js');
         return $package;
     }
 }

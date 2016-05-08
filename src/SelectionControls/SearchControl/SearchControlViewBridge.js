@@ -15,8 +15,8 @@ var searchControl = function (presenterPath) {
 
         var count = 0;
 
-        if (this.model.SelectedItems) {
-            for (var value in this.model.SelectedItems) {
+        if (this.model.selectedItems) {
+            for (var value in this.model.selectedItems) {
                 count++;
             }
         }
@@ -25,7 +25,7 @@ var searchControl = function (presenterPath) {
             // Simulate selecting an item to ensure all other UI elements
             // update consistently between first page load and subsequent
             // selects.
-            this.setSelectedItems(this.model.SelectedItems);
+            this.setSelectedItems(this.model.selectedItems);
         }
         else {
             // Valid states will be:
@@ -48,7 +48,7 @@ var searchControl = function (presenterPath) {
 
             this.searchResults = [];
 
-            if (this.model.FocusOnLoad) {
+            if (this.model.focusOnLoad) {
                 this.phraseBox.focus();
             }
         }
@@ -68,25 +68,41 @@ searchControl.prototype.attachSearchInterfaceToDom = function(){
 };
 
 searchControl.prototype.createDom = function () {
-    this.interfaceContainer = $("<div class='search-control'></div>");
+    this.interfaceContainer = document.createElement("div");
+    this.interfaceContainer.classList.add('search-control');
 
-    this.phraseBox = $("<input type='text' value='' class='phrase-box'/>");
-    this.selectedLabel = $("<span />");
-    this.clearButton = $("<input type='button' value='Clear' />");
-    this.resultsTable = $("<table width='100%' class='results-list'><tbody></tbody></table>");
-    this.resultsList = $("tbody", this.resultsTable);
-    this.resultsContainer = $("<div class='results drop-down' style='z-index: 1000'></div>");
-    this.buttonsContainer = $("<div class='button-container inline'></div>");
+    this.phraseBox = document.createElement("input");
+    this.phraseBox.classList.add("phrase-box");
+    this.phraseBox.setAttribute("type", "text");
 
-    this.resultsContainer.append(this.resultsTable);
-    this.buttonsContainer.append(this.clearButton);
+    this.selectedLabel = document.createElement("span");
+    this.clearButton = document.createElement("input");
+    this.clearButton.setAttribute("type", "button");
+    this.clearButton.value = 'Clear';
 
-    this.resultsContainer.hide();
+    this.resultsList = document.createElement("tbody");
 
-    this.interfaceContainer.append(this.phraseBox);
-    this.interfaceContainer.append(this.selectedLabel);
-    this.interfaceContainer.append(this.buttonsContainer);
-    this.interfaceContainer.append(this.resultsContainer);
+    this.resultsTable = document.createElement("table");
+    this.resultsTable.setAttribute("width", "100%");
+    this.resultsTable.classList.add("results-list");
+    this.resultsTable.appendChild(this.resultsList);
+
+    this.resultsContainer = document.createElement("div");
+    this.resultsContainer.classList.add("results drop-down");
+    this.resultsContainer.style.zIndex = 1000;
+
+    this.buttonsContainer = document.createElement("div");
+    this.buttonsContainer.classList.add("button-container inline");
+
+    this.resultsContainer.appendChild(this.resultsTable);
+    this.buttonsContainer.appendChild(this.clearButton);
+
+    this.resultsContainer.style.display = "none";
+
+    this.interfaceContainer.appendChild(this.phraseBox);
+    this.interfaceContainer.appendChild(this.selectedLabel);
+    this.interfaceContainer.appendChild(this.buttonsContainer);
+    this.interfaceContainer.appendChild(this.resultsContainer);
     this.onCreateDom();
 };
 
@@ -94,16 +110,16 @@ searchControl.prototype.onCreateDom = function () {
 };
 
 searchControl.prototype.setWidth = function (width) {
-    this.phraseBox.width(width + 20);
+    this.phraseBox.offsetWidth = width + 20;
 
-    if (this.model.ResultsWidth == "match") {
-        this.resultsContainer.outerWidth(this.phraseBox.outerWidth() + 10);
+    if (this.model.resultsWidth == "match") {
+        this.resultsContainer.offsetWidth = this.phraseBox.offsetWidth + 10;
     }
     else {
-        this.resultsContainer.css("width", this.model.ResultsWidth);
+        this.resultsContainer.css("width", this.model.resultsWidth);
     }
 
-    this.resultsContainer.height(width);
+    this.resultsContainer.offsetHeight = width;
 };
 
 searchControl.prototype.setValue = function (value) {
@@ -113,13 +129,13 @@ searchControl.prototype.setValue = function (value) {
 
     if (value == "" || value == "0") {
         this.changeState('unselected');
-        this.phraseBox.val('');
+        this.phraseBox.value = '';
     }
     else {
-        this.selectedLabel.text("Retrieving...");
+        this.selectedLabel.innerText = "Retrieving...";
         var self = this;
 
-        this.raiseServerEvent("GetItemForSingleValue", value, function (item) {
+        this.raiseServerEvent("getItemForSingleValue", value, function (item) {
             self.setSelectedItems([item]);
             self.valueChanged();
         });
@@ -135,7 +151,7 @@ searchControl.prototype.hasKeyboardSelection = function () {
 searchControl.prototype.attachEvents = function () {
     var self = this;
 
-    this.phraseBox.keypress(function (e) {
+    this.phraseBox.addEventListener('keypress', function (e) {
         if (e.keyCode == 13) {
             if (self.hasKeyboardSelection()) {
                 self.keyboardSelect();
@@ -149,7 +165,7 @@ searchControl.prototype.attachEvents = function () {
         }
     });
 
-    this.phraseBox.keydown(function (e) {
+    this.phraseBox.addEventListener('keydown', function (e) {
         if (e.keyCode == 38) {
             self.keyboardUp();
             return false;
@@ -162,7 +178,7 @@ searchControl.prototype.attachEvents = function () {
     });
 
 
-    this.phraseBox.keyup(function (e) {
+    this.phraseBox.addEventListener('keyup',function (e) {
         // We aren't interested in a range of characters that can't have any affect on search results and we
         // need to make sure they don't trigger auto search if supported below.
         if (e.keyCode == 37 || e.keyCode == 39 || e.keyCode == 38 || e.keyCode == 40 || e.keyCode == 13) {
@@ -170,13 +186,13 @@ searchControl.prototype.attachEvents = function () {
         }
 
         // If the setting to auto search is true, start a timer that will initiate the search.
-        if (self.model.AutoSubmitSearch) {
+        if (self.model.autoSubmitSearch) {
             if (self.autoSearchTimer) {
                 clearTimeout(self.autoSearchTimer);
             }
 
-            if (self.model.MinimumPhraseLength) {
-                if (self.phraseBox.val().length < self.model.MinimumPhraseLength) {
+            if (self.model.minimumPhraseLength) {
+                if (self.phraseBox.val().length < self.model.minimumPhraseLength) {
                     return;
                 }
             }
@@ -198,10 +214,18 @@ searchControl.prototype.attachEvents = function () {
         self.onClearPressed();
     });
 
-    $(document).on('click.searchControl', function (e) {
+    document.addEventListener('click', function (e) {
         // If the user has clicked outside of the control elements we make sure the search results
         // are closed.
-        if ($(e.target).parents().filter(self.interfaceContainer).length == 0) {
+        var parentNode = e.target.parentNode;
+        var insideSearch = false;
+        while(parentNode != null){
+            if (parentNode == self.interfaceContainer){
+                insideSearch = true;
+                break;
+            }
+        }
+        if (!insideSearch) {
             self.resultsContainer.hide();
         }
     });
@@ -209,7 +233,7 @@ searchControl.prototype.attachEvents = function () {
 
 searchControl.prototype.keyboardSelect = function () {
     // Get the item represented by index and call itemDomSelected
-    this.itemDomSelected($(this.resultsList.children()[this.keyboardSelection]));
+    this.itemDomSelected(this.resultsList.childNodes[this.keyboardSelection]);
 };
 
 searchControl.prototype.keyboardUp = function () {
@@ -233,18 +257,20 @@ searchControl.prototype.keyboardDown = function () {
 };
 
 searchControl.prototype.highlightKeyboardSelection = function () {
-    this.resultsList.children().removeClass('active');
+    for(var i = 0; i<this.resultsList.childNodes.length; i++){
+        this.resultsList.childNodes[i].classList.remove('active');
+    }
 
     if (this.keyboardSelection < 0) {
         return;
     }
 
-    $(this.resultsList.children()[this.keyboardSelection]).addClass('active');
+    this.resultsList.childNodes[this.keyboardSelection].classList.add('active');
 };
 
 searchControl.prototype.changeState = function (newState) {
     if (newState == 'not-searching') {
-        newState = ( this.element.val() != '' && this.element.val() != '0' ) ? 'selected' : 'unselected';
+        newState = ( this.viewNode.value != '' && this.viewNode.value != '0' ) ? 'selected' : 'unselected';
     }
 
     this._state = newState;
@@ -252,28 +278,28 @@ searchControl.prototype.changeState = function (newState) {
 };
 
 searchControl.prototype.updateUiState = function () {
-    this.phraseBox.hide();
-    this.clearButton.hide();
-    this.selectedLabel.hide();
-    this.resultsContainer.hide();
-    this.phraseBox.removeClass("phrase-box-searching");
+    this.phraseBox.style.display = 'none';
+    this.clearButton.style.display = 'none';
+    this.selectedLabel.style.display = 'none';
+    this.resultsContainer.style.display = 'none';
+    this.phraseBox.classList.remove("phrase-box-searching");
 
     switch (this._state) {
         case "unselected":
-            this.phraseBox.show();
+            this.phraseBox.style.display = 'block';
             break;
         case "searching":
-            this.phraseBox.addClass("phrase-box-searching");
-            this.phraseBox.show();
-            this.resultsContainer.show();
+            this.phraseBox.classList.add("phrase-box-searching");
+            this.phraseBox.style.display = 'block';
+            this.resultsContainer.style.display = 'block';
             break;
         case "searched":
-            this.phraseBox.show();
-            this.resultsContainer.show();
+            this.phraseBox.style.display = 'block';
+            this.resultsContainer.style.display = 'block';
             break;
         case "selected":
-            this.selectedLabel.show();
-            this.clearButton.show();
+            this.selectedLabel.style.display = 'block';
+            this.clearButton.style.display = 'block';
             break;
     }
 
@@ -290,15 +316,15 @@ searchControl.prototype.onCancelPressed = function () {
 };
 
 searchControl.prototype.submitSearch = function () {
-    this.resultsList.html('');
+    this.resultsList.innerHTML = '';
     this.changeState('searching');
 
-    var phrase = this.phraseBox.val();
+    var phrase = this.phraseBox.value;
     this.beforeSearchSubmitted(phrase);
 
     var self = this;
 
-    this.raiseServerEvent('SearchPressed', phrase, function (result) {
+    this.raiseServerEvent('searchPressed', phrase, function (result) {
         self.changeState('searched');
         self.onSearchResultsReceived(result);
     });
@@ -319,7 +345,7 @@ searchControl.prototype.onSearchResultsReceived = function (items) {
         var item = items[i];
         var itemDom = this.createResultItemDom(item);
 
-        this.resultsList.append(itemDom);
+        this.resultsList.appendChild(itemDom);
     }
 };
 
@@ -332,7 +358,7 @@ searchControl.prototype.createItemLabelDom = function (labelString) {
 };
 
 searchControl.prototype.itemDomSelected = function (itemDom) {
-    var item = itemDom.data('item');
+    var item = itemDom.data;
     this.setSelectedItems([item]);
     this.valueChanged();
 };
@@ -345,12 +371,12 @@ searchControl.prototype.setSelectedItems = function (items, raiseServerEvent) {
         var labelDom = this.createItemLabelDom(item.label);
         var self = this;
 
-        this.selectedLabel.html(labelDom);
+        this.selectedLabel.innerHTML = labelDom;
 
         this.setInternalValue(item.value);
 
         if (raiseServerEvent) {
-            this.raiseServerEvent('ItemSelected', item, function (result) {
+            this.raiseServerEvent('itemSelected', item, function (result) {
                 self.itemSelected(result);
             });
         }
@@ -364,33 +390,36 @@ searchControl.prototype.itemSelected = function (result) {
 };
 
 searchControl.prototype.setInternalValue = function (value) {
-    this.element.find('input[name="' + this.leafPath + '"]').val(value);
+    this.viewNode.value = value;
     this.changeState('selected');
 };
 
 searchControl.prototype.createResultItemDom = function (item) {
-    var itemDom = $('<tr class="-item"></tr>');
+    var itemDom = document.createElement('tr');
+    itemDom.classList.add("-item");
 
-    for (var i = 0; i < this.model.ResultColumns.length; i++) {
-        var column = this.model.ResultColumns[i];
+    for (var i = 0; i < this.model.resultColumns.length; i++) {
+        var column = this.model.resultColumns[i];
 
         if (typeof item.data[column] != 'undefined') {
-            itemDom.append('<td>' + item.data[column] + '</td>');
+            var td = document.createElement('td');
+            td.apppendChild(document.createTextNode(item.data[column]));
+            itemDom.appendChild(td);
         }
         else {
-            itemDom.append('<td></td>');
+            itemDom.appendChild(document.createElement('td'));
         }
     }
 
-    itemDom.data('value', item.value);
-    itemDom.data('item', item);
+    itemDom.value = item.value;
+    itemDom.data = item;
 
     var self = this;
 
     // This would be more efficient as an event on the outer list, however that would mean knowing the correct
     // child selector which might change and also fragments the code a little.
-    itemDom.on('click', function () {
-        self.itemDomSelected($(this));
+    itemDom.addEventListener('click', function () {
+        self.itemDomSelected(this);
     });
 
     return itemDom;

@@ -60,7 +60,7 @@ class SelectionControl extends Control
         return $this->selectionItems;
     }
 
-    private function getCurrentlyAvailableSelectionItems()
+    protected function getCurrentlyAvailableSelectionItems()
     {
         $totalItems = [];
         $selectionItems = $this->getSelectionItems();

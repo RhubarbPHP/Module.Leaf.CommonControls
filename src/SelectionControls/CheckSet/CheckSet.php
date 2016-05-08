@@ -30,12 +30,12 @@ class CheckSet extends DropDown
         return true;
     }
 
-    protected function createView()
+    protected function getViewClass()
     {
-        return new CheckSetView();
+        return CheckSetView::class;
     }
 
-    protected function parseRequestForCommand()
+    protected function parseRequest()
     {
         $request = Context::currentRequest();
 

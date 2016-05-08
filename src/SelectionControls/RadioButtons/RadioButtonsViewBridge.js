@@ -8,7 +8,11 @@ radioButtonsViewBridge.prototype = new window.rhubarb.viewBridgeClasses.Selectio
 radioButtonsViewBridge.prototype.constructor = radioButtonsViewBridge;
 
 radioButtonsViewBridge.prototype.setValue = function (value) {
-    this.element.find('input[type=radio][value=' + value + ']').prop('checked', true);
+    this.selectAndIterateElements('input[type=radio]', function(item) {
+        if (item.value == value) {
+            item.checked = true;
+        }
+    });
 
     this.model.SelectedItems = [{"value": value}];
 
@@ -16,9 +20,13 @@ radioButtonsViewBridge.prototype.setValue = function (value) {
 };
 
 radioButtonsViewBridge.prototype.valueChanged = function () {
-    var checked = this.element.find("input:checked");
+    var checkedInput = this.viewNode.querySelector("input:checked");
 
-    this.model.SelectedItems = [{"value": checked.length ? checked.val() : null}];
+    if (checkedInput) {
+        this.model.SelectedItems = [{"value": checked.length ? checked.value : null}];
+    } else {
+        this.model.SelectedItems = [];
+    }
 
     // Calling our parent will ensure the new value gets raised as an event
     window.rhubarb.viewBridgeClasses.SelectionControlViewBridge.prototype.valueChanged.apply(this, arguments);

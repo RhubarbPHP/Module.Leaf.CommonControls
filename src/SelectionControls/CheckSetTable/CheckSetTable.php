@@ -9,8 +9,8 @@ use Rhubarb\Leaf\Controls\Common\SelectionControls\CheckSet\CheckSet;
  */
 class CheckSetTable extends CheckSet
 {
-    protected function createView()
+    protected function getViewClass()
     {
-        return new CheckSetTableView();
+        return CheckSetTableView::class;
     }
 }

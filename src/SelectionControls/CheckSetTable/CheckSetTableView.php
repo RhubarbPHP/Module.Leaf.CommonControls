@@ -9,24 +9,21 @@ use Rhubarb\Leaf\Controls\Common\SelectionControls\SelectionControlView;
  */
 class CheckSetTableView extends SelectionControlView
 {
-    public function __construct()
-    {
-        $this->requiresContainer = false;
-        $this->requiresStateInputs = false;
-    }
+    protected $requiresContainer = false;
+    protected $requiresStateInputs = false;
 
     protected function printViewContent()
     {
-        $name = $this->getIndexedPresenterPath();
+        $name = $this->model->leafPath;
         $name = \htmlentities($name) . '[]';
 
-        $presenterPath = \htmlentities($this->getIndexedPresenterPath());
-        $presenterName = \htmlentities($this->presenterName);
-        $attributes = $this->getHtmlAttributeTags();
+        $presenterPath = \htmlentities($this->model->leafPath);
+        $presenterName = \htmlentities($this->model->leafName);
+        $attributes = $this->model->getHtmlAttributes();
 
         $checkRow = $headerRow = '';
 
-        foreach ($this->availableItems as $item) {
+        foreach ($this->model->selectionItems as $item) {
             if (isset($item->Children)) {
                 $itemList = $item->Children;
                 $text = \htmlentities($item->label);

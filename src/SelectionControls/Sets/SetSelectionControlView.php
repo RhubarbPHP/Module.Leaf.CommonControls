@@ -64,7 +64,7 @@ abstract class SetSelectionControlView extends SelectionControlView
      */
     public function getItemOptionHtml($value, $label, $item, $classSuffix = "")
     {
-        $name = $this->presenterPath;
+        $name = $this->model->leafPath;
         $id = $this->getInputId($name, $value);
 
         $inputHtml = $this->getInputHtml($name, $value, $item, $id);
@@ -75,12 +75,12 @@ abstract class SetSelectionControlView extends SelectionControlView
 
     public function getInputId($name, $value)
     {
-        return $this->getIndexedPresenterPath() . '-' . $value;
+        return $this->model->leafPath . '-' . $value;
     }
 
     protected function printViewContent()
     {
-        foreach ($this->availableItems as $item) {
+        foreach ($this->model->selectionItems as $item) {
             print $this->getItemOptionHtml($item->value, $item->label, $item);
         }
     }

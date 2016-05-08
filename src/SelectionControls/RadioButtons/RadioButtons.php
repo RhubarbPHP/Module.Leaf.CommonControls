@@ -18,15 +18,18 @@
 
 namespace Rhubarb\Leaf\Controls\Common\SelectionControls\RadioButtons;
 
-require_once __DIR__ . '/../SelectionControlPresenter.php';
-
 use Rhubarb\Leaf\Controls\Common\SelectionControls\SelectionControl;
 
 class RadioButtons extends SelectionControl
 {
-    protected function createView()
+    /**
+     * @var RadioButtonsView
+     */
+    protected $view;
+
+    protected function getViewClass()
     {
-        return new RadioButtonsView();
+        return RadioButtonsView::class;
     }
 
     /**
@@ -39,10 +42,6 @@ class RadioButtons extends SelectionControl
      */
     public function getIndividualRadioButtonHtml($value)
     {
-        $this->fetchBoundData();
-        $this->applyModelToView();
-        $this->beforeRenderView();
-
-        return $this->view->getInputHtml($this->model->PresenterPath, $value, null);
+        return $this->view->getInputHtml($this->model->leafPath, $value, null);
     }
 }

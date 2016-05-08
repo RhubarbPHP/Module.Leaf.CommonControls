@@ -18,8 +18,6 @@
 
 namespace Rhubarb\Leaf\Controls\Common\SelectionControls\SearchControl;
 
-require_once __DIR__ . "/../SelectionControlPresenter.php";
-
 use Rhubarb\Leaf\Controls\Common\SelectionControls\SelectionControl;
 use Rhubarb\Stem\Models\Model;
 
@@ -31,12 +29,10 @@ use Rhubarb\Stem\Models\Model;
  */
 abstract class SearchControl extends SelectionControl
 {
-    public function __construct($name = "")
-    {
-        parent::__construct($name);
-
-        $this->attachClientSidePresenterBridge = true;
-    }
+    /**
+     * @var SearchControlModel
+     */
+    protected $model;
 
     /**
      * Sets the width of the results panel.
@@ -50,7 +46,7 @@ abstract class SearchControl extends SelectionControl
      */
     public function setResultsWidth($width)
     {
-        $this->model->ResultsWidth = $width;
+        $this->model->resultsWidth = $width;
     }
 
     protected function isValueSelectable($value)
@@ -64,41 +60,22 @@ abstract class SearchControl extends SelectionControl
         return parent::isValueSelectable($value);
     }
 
-    protected function initialiseModel()
+    protected function createModel()
     {
-        parent::initialiseModel();
-
-        $this->model->ResultsWidth = "match";
-        $this->model->AutoSubmitSearch = true;
-        $this->ResultColumns = $this->getResultColumns();
-    }
-
-    protected abstract function getResultColumns();
-
-    protected function createView()
-    {
-        return new SearchControlView();
-    }
-
-    protected function configureView()
-    {
-        parent::configureView();
-
-        $this->view->attachEventHandler("SearchPressed", function ($phrase) {
-            $this->Phrase = $phrase;
-
-            // Note the pattern here is not to engage with the phrase directly, but purely to record it in the
-            // model and let the standard method that returns items decide how to handle it.
+        $model = new SearchControlModel();
+        $model->resultColumns = $this->getResultColumns();
+        $model->searchPressedEvent->attachHandler(function($phrase){
+            $this->model->searchPhrase = $phrase;
             return $this->getCurrentlyAvailableSelectionItems();
         });
-
-        $this->view->attachEventHandler("ItemSelected", function ($selectedId) {
-            $this->SelectedItems = [$selectedId];
+        
+        $model->itemSelectedEvent->attachHandler(function($selectedId){
+            $this->model->value = [$selectedId];
 
             return $selectedId;
         });
 
-        $this->view->attachEventHandler("GetItemForSingleValue", function ($value) {
+        $model->getItemForSingleValueEvent->attachHandler(function($value){
             $value = $this->convertValueToModel($value);
             $optionValue = ($value instanceof Model) ? $value->UniqueIdentifier : $value;
 
@@ -106,17 +83,14 @@ abstract class SearchControl extends SelectionControl
 
             return $item;
         });
+
+        return $model;
     }
 
-    protected function getPublicModelPropertyList()
-    {
-        $properties = parent::getPublicModelPropertyList();
-        $properties[] = "FocusOnLoad";
-        $properties[] = "AutoSubmitSearch";
-        $properties[] = "MinimumPhraseLength";
-        $properties[] = "ResultColumns";
-        $properties[] = "ResultsWidth";
+    protected abstract function getResultColumns();
 
-        return $properties;
+    protected function getViewClass()
+    {
+        return SearchControlView::class;
     }
 }
