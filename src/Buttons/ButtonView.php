@@ -19,7 +19,7 @@ class ButtonView extends ControlView
         $classes = $this->model->getClassAttribute();
         $otherAttributes = $this->model->getHtmlAttributes();
 
-        $confirmAttribute = ($this->model->confirmMessage != "") ? ' data-confirm-message="'.htmlentities($this->model->confirmMessage).'"' : '';
+        $confirmAttribute = ($this->model->confirmMessage != "") ? ' confirm="'.htmlentities($this->model->confirmMessage).'"' : '';
         $xhrAttribute = ($this->model->useXhr) ? ' xmlrpc="yes"' : '';
 
         ?>
