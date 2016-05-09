@@ -29,6 +29,16 @@ class ButtonView extends ControlView
 
     protected function parseRequest(WebRequest $request)
     {
+        $postData = $request->postData;
+
+        foreach($postData as $key => $value){
+            if (preg_match("/".$this->model->leafPath."\(([^)]+)\)$/", $key, $match)){
+                if ($value != null){
+                    $this->model->buttonPressedEvent->raise($match[1]);
+                }
+            }
+        }
+
         $value = $request->post($this->model->leafPath);
 
         if ($value != null){
