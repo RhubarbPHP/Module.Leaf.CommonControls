@@ -1,4 +1,4 @@
-var button = function (presenterPath) {
+var button = function (leafPath) {
     this.validation = false;
     this.validator = false;
     this.confirmMessage = false;

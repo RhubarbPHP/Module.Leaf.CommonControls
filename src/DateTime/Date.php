@@ -21,5 +21,8 @@ use Rhubarb\Leaf\Leaves\Controls\Control;
 
 class Date extends Control
 {
-    
+    protected function getViewClass()
+    {
+        return DateView::class;
+    }
 }

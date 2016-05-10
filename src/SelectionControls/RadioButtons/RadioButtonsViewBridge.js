@@ -1,4 +1,4 @@
-var radioButtonsViewBridge = function (presenterPath) {
+var radioButtonsViewBridge = function (leafPath) {
     window.rhubarb.viewBridgeClasses.SelectionControlViewBridge.apply(this, arguments);
 
     this.supportsMultipleSelection = false;

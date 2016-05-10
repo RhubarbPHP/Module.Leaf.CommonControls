@@ -27,7 +27,7 @@ class SearchControlView extends SelectionControlView
 {
     public function printViewContent()
     {
-        print '<input type="hidden" name="' . $this->model->leafPath . '" />';
+        print '<input type="hidden" id="'.$this->model->leafPath.'" name="' . $this->model->leafPath . '" />';
     }
 
     protected function getViewBridgeName()
@@ -37,11 +37,10 @@ class SearchControlView extends SelectionControlView
 
     public function getDeploymentPackage()
     {
-        $package = new LeafDeploymentPackage(
-            __DIR__ . "/SearchControlViewBridge.js",
-            __DIR__ . "/SearchControl.css",
-            __DIR__ . "/Resources/ajax-loader.gif"
-        );
+        $package = parent::getDeploymentPackage();
+        $package->resourcesToDeploy[] = __DIR__ . "/SearchControlViewBridge.js";
+        $package->resourcesToDeploy[] = __DIR__ . "/SearchControl.css";
+        $package->resourcesToDeploy[] = __DIR__ . "/Resources/ajax-loader.gif";
         
         return $package;
     }

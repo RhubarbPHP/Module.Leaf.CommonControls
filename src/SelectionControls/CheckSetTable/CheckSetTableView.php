@@ -17,7 +17,7 @@ class CheckSetTableView extends SelectionControlView
         $name = $this->model->leafPath;
         $name = \htmlentities($name) . '[]';
 
-        $presenterPath = \htmlentities($this->model->leafPath);
+        $leafPath = \htmlentities($this->model->leafPath);
         $presenterName = \htmlentities($this->model->leafName);
         $attributes = $this->model->getHtmlAttributes();
 
@@ -49,7 +49,7 @@ HTML;
         }
 
         print <<<HTML
-		<table id="$presenterPath" presenter-name="$presenterName"$attributes>
+		<table id="$leafPath" presenter-name="$presenterName"$attributes>
 			<thead><tr>$headerRow</tr></thead>
 			<tbody><tr>$checkRow</tr></tbody>
 		</table>

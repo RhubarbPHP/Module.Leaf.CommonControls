@@ -1,4 +1,4 @@
-var selectionControl = function (presenterPath) {
+var selectionControl = function (leafPath) {
     window.rhubarb.viewBridgeClasses.ViewBridge.apply(this, arguments);
 
     /**

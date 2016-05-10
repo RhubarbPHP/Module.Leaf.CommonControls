@@ -1,4 +1,4 @@
-var searchControl = function (presenterPath) {
+var searchControl = function (leafPath) {
     if (arguments.length) {
         // Construct the search interface first so the when attachEvents is called, we have elements to attach to.
         this.createDom();
@@ -64,7 +64,7 @@ searchControl.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlV
 searchControl.prototype.constructor = searchControl;
 
 searchControl.prototype.attachSearchInterfaceToDom = function(){
-    this.element.after(this.interfaceContainer)
+    this.viewNode.insertAdjacentHTML('afterend',this.interfaceContainer)
 };
 
 searchControl.prototype.createDom = function () {
@@ -88,11 +88,13 @@ searchControl.prototype.createDom = function () {
     this.resultsTable.appendChild(this.resultsList);
 
     this.resultsContainer = document.createElement("div");
-    this.resultsContainer.classList.add("results drop-down");
+    this.resultsContainer.classList.add("results");
+    this.resultsContainer.classList.add("drop-down");
     this.resultsContainer.style.zIndex = 1000;
 
     this.buttonsContainer = document.createElement("div");
-    this.buttonsContainer.classList.add("button-container inline");
+    this.buttonsContainer.classList.add("button-container");
+    this.buttonsContainer.classList.add("inline");
 
     this.resultsContainer.appendChild(this.resultsTable);
     this.buttonsContainer.appendChild(this.clearButton);
@@ -116,7 +118,7 @@ searchControl.prototype.setWidth = function (width) {
         this.resultsContainer.offsetWidth = this.phraseBox.offsetWidth + 10;
     }
     else {
-        this.resultsContainer.css("width", this.model.resultsWidth);
+        this.resultsContainer.style.width = this.model.resultsWidth;
     }
 
     this.resultsContainer.offsetHeight = width;

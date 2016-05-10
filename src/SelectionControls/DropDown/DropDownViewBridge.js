@@ -1,7 +1,7 @@
-var dropDown = function (presenterPath) {
+var dropDown = function (leafPath) {
     window.rhubarb.viewBridgeClasses.SelectionControlViewBridge.apply(this, arguments);
 
-    if (!presenterPath) {
+    if (!leafPath) {
         return;
     }
 
