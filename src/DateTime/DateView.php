@@ -20,10 +20,26 @@ namespace Rhubarb\Leaf\Controls\Common\DateTime;
 use Rhubarb\Crown\DateTime\RhubarbDate;
 use Rhubarb\Crown\Request\WebRequest;
 use Rhubarb\Leaf\Leaves\Controls\ControlView;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class DateView extends ControlView
 {
     protected $requiresContainerDiv = true;
+
+    /**
+     * If the leaf requires a view bridge this returns it's name.
+     *
+     * @return string|bool
+     */
+    protected function getViewBridgeName()
+    {
+        return "DateViewBridge";
+    }
+
+    public function getDeploymentPackage()
+    {
+        return new LeafDeploymentPackage(__DIR__."/DateViewBridge.js");
+    }
 
     protected function printViewContent()
     {

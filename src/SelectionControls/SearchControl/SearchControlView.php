@@ -27,7 +27,7 @@ class SearchControlView extends SelectionControlView
 {
     public function printViewContent()
     {
-        print '<input type="hidden" id="'.$this->model->leafPath.'" name="' . $this->model->leafPath . '" />';
+        print '<input type="hidden" leaf-name="'.$this->model->leafName.'" id="'.$this->model->leafPath.'" name="' . $this->model->leafPath . '" />';
     }
 
     protected function getViewBridgeName()

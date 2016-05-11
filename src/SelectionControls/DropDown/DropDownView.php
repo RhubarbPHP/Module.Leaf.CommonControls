@@ -47,7 +47,7 @@ class DropDownView extends SelectionControlView
 
         ?>
         <select name="<?= \htmlentities($name); ?>" id="<?= \htmlentities($name); ?>"
-            presenter-name="<?= \htmlentities($this->model->leafName); ?>"<?= $this->model->getHtmlAttributes() . $this->model->getClassAttribute() ?>>
+            leaf-name="<?= \htmlentities($this->model->leafName); ?>"<?= $this->model->getHtmlAttributes() . $this->model->getClassAttribute() ?>>
         <?php
         foreach ($this->model->selectionItems as $item) {
             $itemList = [$item];

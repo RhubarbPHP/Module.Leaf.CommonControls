@@ -64,7 +64,7 @@ searchControl.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlV
 searchControl.prototype.constructor = searchControl;
 
 searchControl.prototype.attachSearchInterfaceToDom = function(){
-    this.viewNode.insertAdjacentHTML('afterend',this.interfaceContainer)
+    this.viewNode.parentNode.appendChild(this.interfaceContainer)
 };
 
 searchControl.prototype.createDom = function () {
@@ -226,9 +226,11 @@ searchControl.prototype.attachEvents = function () {
                 insideSearch = true;
                 break;
             }
+
+            parentNode = parentNode.parentNode;
         }
         if (!insideSearch) {
-            self.resultsContainer.hide();
+            self.resultsContainer.style.display = "none";
         }
     });
 };
