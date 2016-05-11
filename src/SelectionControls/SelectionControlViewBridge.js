@@ -45,11 +45,11 @@ selectionControl.prototype.getValue = function () {
     }
 };
 
-selectionControl.prototype.setselectedItems = function (items) {
+selectionControl.prototype.setSelectedItems = function (items) {
     this.model.selectedItems = items;
 };
 
-selectionControl.prototype.getselectedItems = function () {
+selectionControl.prototype.getSelectedItems = function () {
     return this.model.selectedItems;
 };
 

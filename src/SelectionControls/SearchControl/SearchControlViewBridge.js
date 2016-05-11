@@ -206,12 +206,13 @@ searchControl.prototype.attachEvents = function () {
     });
 
 
-    this.clearButton.click(function () {
+    this.clearButton.addEventListener('click', function () {
         //self.setSelectedValueAndLabel( "", "" );
 
         self.changeState('unselected');
 
-        self.phraseBox.focus().select();
+        self.phraseBox.focus();
+        self.phraseBox.select();
 
         self.onClearPressed();
     });
@@ -343,7 +344,7 @@ searchControl.prototype.onSearchResultsReceived = function (items) {
     this.highlightKeyboardSelection();
 
     this.searchResults = items;
-    this.resultsList.html('');
+    this.resultsList.innerHTML = '';
 
     for (var i in items) {
         var item = items[i];
@@ -407,7 +408,7 @@ searchControl.prototype.createResultItemDom = function (item) {
 
         if (typeof item.data[column] != 'undefined') {
             var td = document.createElement('td');
-            td.apppendChild(document.createTextNode(item.data[column]));
+            td.appendChild(document.createTextNode(item.data[column]));
             itemDom.appendChild(td);
         }
         else {
