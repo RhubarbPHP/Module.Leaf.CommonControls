@@ -15,6 +15,13 @@ class SelectionControlModel extends ControlModel
     public $selectionItems = [];
 
     /**
+     * The array of items selected
+     *
+     * @var array
+     */
+    public $selectedItems = [];
+
+    /**
      * True if the control supports selecting multiple values
      *
      * @var bool

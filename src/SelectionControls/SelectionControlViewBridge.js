@@ -20,15 +20,15 @@ selectionControl.prototype.setCurrentlyAvailableSelectionItems = function (items
 selectionControl.prototype.setValue = function (value) {
     this.viewNode.value = value;
 
-    this.model.SelectedItems = [{"value": value}];
+    this.model.selectedItems = [{"value": value}];
 };
 
 selectionControl.prototype.getValue = function () {
     // If the control only supports a single selection then just return
     // the first of the selected items (or false if none selected)
     if (!this.supportsMultipleSelection) {
-        if (this.model.SelectedItems.length > 0) {
-            return this.model.SelectedItems[0].value;
+        if (this.model.selectedItems.length > 0) {
+            return this.model.selectedItems[0].value;
         }
         else {
             return false;
@@ -45,25 +45,25 @@ selectionControl.prototype.getValue = function () {
     }
 };
 
-selectionControl.prototype.setSelectedItems = function (items) {
-    this.model.SelectedItems = items;
+selectionControl.prototype.setselectedItems = function (items) {
+    this.model.selectedItems = items;
 };
 
-selectionControl.prototype.getSelectedItems = function () {
-    return this.model.SelectedItems;
+selectionControl.prototype.getselectedItems = function () {
+    return this.model.selectedItems;
 };
 
 /**
  * Returns the first of the selected item objects
  *
- * @returns {*|SelectedItems}
+ * @returns {*|selectedItems}
  */
 selectionControl.prototype.getSelectedItem = function () {
-    if (this.model.SelectedItems.length <= 0) {
+    if (this.model.selectedItems.length <= 0) {
         return false;
     }
 
-    return this.model.SelectedItems[0];
+    return this.model.selectedItems[0];
 };
 
 selectionControl.prototype.isValueSelected = function (value) {
@@ -71,8 +71,8 @@ selectionControl.prototype.isValueSelected = function (value) {
 };
 
 selectionControl.prototype.getSelectedKeyFromValue = function (value) {
-    for (var i in this.model.SelectedItems) {
-        if (i != "length" && this.model.SelectedItems[i].value == value) {
+    for (var i in this.model.selectedItems) {
+        if (i != "length" && this.model.selectedItems[i].value == value) {
             return i;
         }
     }

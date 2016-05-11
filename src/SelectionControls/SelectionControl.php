@@ -225,6 +225,7 @@ class SelectionControl extends Control
         }
 
         $this->model->value = $selectedItems;
+        $this->model->selectedItems = $selectedItems;
     }
 
     public function setValue($bindingValue)

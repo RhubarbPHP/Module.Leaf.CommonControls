@@ -194,7 +194,7 @@ searchControl.prototype.attachEvents = function () {
             }
 
             if (self.model.minimumPhraseLength) {
-                if (self.phraseBox.val().length < self.model.minimumPhraseLength) {
+                if (self.phraseBox.value.length < self.model.minimumPhraseLength) {
                     return;
                 }
             }
