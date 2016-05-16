@@ -46,9 +46,9 @@ class DateView extends ControlView
         parent::printViewContent();
 
         ?>
-        <select name="<?=$this->model->leafPath;?>_day"><?php $this->printDays();?></select>
-        <select name="<?=$this->model->leafPath;?>_month"><?php $this->printMonths();?></select>
-        <select name="<?=$this->model->leafPath;?>_year"><?php $this->printYears();?></select>
+        <select name="<?=$this->model->leafPath;?>_day" id="<?=$this->model->leafPath;?>_day"><?php $this->printDays();?></select>
+        <select name="<?=$this->model->leafPath;?>_month" id="<?=$this->model->leafPath;?>_month"><?php $this->printMonths();?></select>
+        <select name="<?=$this->model->leafPath;?>_year" id="<?=$this->model->leafPath;?>_year"><?php $this->printYears();?></select>
         <?php
     }
 
