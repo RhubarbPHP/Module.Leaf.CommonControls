@@ -36,10 +36,9 @@ class CheckSet extends DropDown
         return CheckSetView::class;
     }
 
-    protected function parseRequest( WebRequest $request )
+    protected function parseRequest(WebRequest $request)
     {
-        if( !$request )
-        {
+        if (!$request) {
             $request = Context::currentRequest();
         }
 
