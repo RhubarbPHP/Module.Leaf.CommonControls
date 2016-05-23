@@ -37,9 +37,10 @@ selectionControl.prototype.getValue = function () {
     else {
         var values = [];
 
-        $(this.viewNode).find("input:checked").each(function () {
-            values.push($(this).val());
-        });
+        var checkedBoxes = this.viewNode.querySelectorAll('input:checked');
+        for (var i = 0; i < checkedBoxes.length; i++) {
+            values.push(checkedBoxes[i].value);
+        }
 
         return values;
     }

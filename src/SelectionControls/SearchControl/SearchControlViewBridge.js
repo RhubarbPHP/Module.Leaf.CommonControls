@@ -406,9 +406,13 @@ searchControl.prototype.createResultItemDom = function (item) {
     for (var i = 0; i < this.model.resultColumns.length; i++) {
         var column = this.model.resultColumns[i];
 
-        if (typeof item.data[column] != 'undefined') {
+        // Slightly unorthodox but using eval allows for the column to contain 'dots' to
+        // descend into nested data structures in the item data.
+        var itemValue = eval('item.data.' + column);
+
+        if (typeof itemValue != 'undefined') {
             var td = document.createElement('td');
-            td.appendChild(document.createTextNode(item.data[column]));
+            td.appendChild(document.createTextNode(itemValue));
             itemDom.appendChild(td);
         }
         else {
