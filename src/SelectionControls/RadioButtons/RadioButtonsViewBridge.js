@@ -14,7 +14,7 @@ radioButtonsViewBridge.prototype.setValue = function (value) {
         }
     });
 
-    this.model.SelectedItems = [{"value": value}];
+    this.model.selectedItems = [{"value": value}];
 
     this.valueChanged();
 };
@@ -23,9 +23,9 @@ radioButtonsViewBridge.prototype.valueChanged = function () {
     var checkedInput = this.viewNode.querySelector("input:checked");
 
     if (checkedInput) {
-        this.model.SelectedItems = [{"value": checkedInput.length ? checkedInput[0].value : null}];
+        this.model.selectedItems = [{"value": checkedInput.value}];
     } else {
-        this.model.SelectedItems = [];
+        this.model.selectedItems = [];
     }
 
     // Calling our parent will ensure the new value gets raised as an event
