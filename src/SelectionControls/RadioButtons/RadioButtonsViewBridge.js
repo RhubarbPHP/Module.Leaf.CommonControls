@@ -23,7 +23,7 @@ radioButtonsViewBridge.prototype.valueChanged = function () {
     var checkedInput = this.viewNode.querySelector("input:checked");
 
     if (checkedInput) {
-        this.model.SelectedItems = [{"value": checked.length ? checked.value : null}];
+        this.model.SelectedItems = [{"value": checkedInput.length ? checkedInput[0].value : null}];
     } else {
         this.model.SelectedItems = [];
     }
