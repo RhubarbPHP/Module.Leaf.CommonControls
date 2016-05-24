@@ -38,7 +38,7 @@ class SelectionControlView extends ControlView
 
     protected function getViewBridgeName()
     {
-        return "ControlViewBridge";
+        return "SelectionControlViewBridge";
     }
 
     protected function isValueSelected($value)

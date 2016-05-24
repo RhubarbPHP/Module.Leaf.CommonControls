@@ -25,6 +25,8 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class RadioButtonsView extends SetSelectionControlView
 {
+    protected $requiresContainerDiv = true;
+
     public function getInputHtml($name, $value, $item)
     {
         $checked = '';
@@ -50,7 +52,8 @@ class RadioButtonsView extends SetSelectionControlView
 
     public function getDeploymentPackage()
     {
-        $package = new LeafDeploymentPackage(__DIR__ . '/RadioButtonsViewBridge.js');
+        $package = new LeafDeploymentPackage(__DIR__ . '/../SelectionControlViewBridge.js');
+        $package->resourcesToDeploy[] = __DIR__ . '/RadioButtonsViewBridge.js';
         return $package;
     }
 }
