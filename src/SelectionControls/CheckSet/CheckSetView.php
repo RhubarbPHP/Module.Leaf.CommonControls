@@ -24,6 +24,8 @@ use Rhubarb\Leaf\Controls\Common\SelectionControls\Sets\SetSelectionControlView;
 
 class CheckSetView extends SetSelectionControlView
 {
+    protected $requiresContainerDiv = true;
+
     public function getInputHtml($name, $value, $item)
     {
         $checked = ($this->isValueSelected($value)) ? ' checked="checked"' : '';
