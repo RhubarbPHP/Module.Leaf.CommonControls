@@ -254,7 +254,7 @@ class SelectionControl extends Control
         foreach ($list as $key => $value) {
             if (is_object($value)) {
                 $value = $value->value;
-            } else {
+            } elseif (is_array($value)) {
                 $value = $value["value"];
             }
 

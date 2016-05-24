@@ -38,23 +38,21 @@ class CheckSet extends DropDown
 
     protected function parseRequest(WebRequest $request)
     {
-        if (!$request) {
-            $request = Context::currentRequest();
+        if ($request->server("REQUEST_METHOD") != "POST"){
+            return;
         }
 
-        if ($request->server("REQUEST_METHOD") == "POST") {
-            $values = $request->post($this->getIndexedPresenterPath());
+        $values = $request->post($this->model->leafPath);
 
-            if ($values === null) {
-                $values = [];
-            }
-
-            if (!is_array($values)) {
-                $values = explode(",", $values);
-            }
-
-            $this->setSelectedItems($values);
-            $this->setBoundData();
+        if ($values === null) {
+            $values = [];
         }
+
+        if (!is_array($values)) {
+            $values = explode(",", $values);
+        }
+
+        $this->setSelectedItems($values);
+        $this->getBindingValueChangedEvent()->raise();
     }
 }
