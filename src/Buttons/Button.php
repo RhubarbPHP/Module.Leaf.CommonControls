@@ -55,6 +55,11 @@ class Button extends Control
     {
         return ButtonView::class;
     }
+
+    public function setButtonText($buttonText)
+    {
+        $this->model->text = $buttonText;
+    }
     
     protected function createModel()
     {
