@@ -2,8 +2,10 @@
 
 namespace Rhubarb\Leaf\Controls\Common\Checkbox;
 
+use Rhubarb\Crown\Deployment\DeploymentPackage;
 use Rhubarb\Crown\Request\WebRequest;
 use Rhubarb\Leaf\Leaves\Controls\ControlView;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class CheckboxView extends ControlView
 {
@@ -11,6 +13,24 @@ class CheckboxView extends ControlView
     {
         $checked = ($this->model->value) ? ' checked="checked"' : '';
         ?><input type="checkbox" <?=$this->getNameValueClassAndAttributeString(false).$checked;?>/><?php
+    }
+
+    /**
+     * If the leaf requires a view bridge this returns it's name.
+     *
+     * @return string|bool
+     */
+    protected function getViewBridgeName()
+    {
+        return "CheckboxViewBridge";
+    }
+
+    /**
+     * @return DeploymentPackage
+     */
+    public function getDeploymentPackage()
+    {
+        return new LeafDeploymentPackage(__DIR__."/CheckboxViewBridge.js");
     }
 
     protected function parseRequest(WebRequest $request)
