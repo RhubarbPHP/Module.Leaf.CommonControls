@@ -21,7 +21,7 @@ var dropDown = function (leafPath) {
         }
     });
 
-    this.model.SelectedItems = selectedItems;
+    this.model.selectedItems = selectedItems;
 
     // hasAttribute would be better - but this isn't IE 7 compatible
     this.supportsMultipleSelection = ( this.viewNode.getAttribute("multiple") != null );
