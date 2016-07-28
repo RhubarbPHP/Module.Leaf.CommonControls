@@ -43,7 +43,7 @@ class CheckboxView extends ControlView
 
         if ($request->server('REQUEST_METHOD')=="POST") {
             $value = $request->post($path);
-            if ($value !== null) {
+            if ($value === 'on') {
                 $this->model->setValue(true);
             } else {
                 $this->model->setValue(false);
