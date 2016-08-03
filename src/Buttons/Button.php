@@ -65,9 +65,13 @@ class Button extends Control
     {
         $model = new ButtonModel();
         $model->buttonPressedEvent->attachHandler(function(...$arguments){
-            $this->runBeforeRender(function() use ($arguments){
-                $this->buttonPressedEvent->raise(...$arguments);
-            });
+            if ($this->model->useXhr){
+                return $this->buttonPressedEvent->raise(...$arguments);
+            } else {
+                $this->runBeforeRender(function () use ($arguments) {
+                    $this->buttonPressedEvent->raise(...$arguments);
+                });
+            }
         });
 
         return $model;
