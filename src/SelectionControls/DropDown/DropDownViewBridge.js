@@ -73,11 +73,13 @@ dropDown.prototype.setCurrentlyAvailableSelectionItems = function (items) {
 
     for (var i in items) {
         var item = items[i];
-        var itemDom = $('<option value="' + item.value + '">' + item.label + '</option>');
+        var itemDom = document.createElement("option");
+        itemDom.value = item.value;
+        itemDom.innerHTML = item.label;
 
         itemDom.data = item;
 
-        this.viewNode.childNodes.append(itemDom);
+        this.viewNode.appendChild(itemDom);
     }
 
     this.viewNode.value = oldValue;
