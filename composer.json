@@ -13,19 +13,10 @@
   "license": "Apache-2.0",
   "autoload": {
     "psr-4": {
-      "Rhubarb\\Leaf\\Controls\\Common\\": "src/",
-      "Rhubarb\\Leaf\\Controls\\Common\\Tests\\": "tests/unit/"
+      "Rhubarb\\Leaf\\Controls\\Common\\": "src/"
     }
   },
-  "extra": {
-		"branch-alias": {
-			"dev-master": "1.0.0-dev"
-		}
-	},  
   "require": {
-    "rhubarbphp/module-leaf": "1.x-dev"
-  },
-  "require-dev": {
-    "codeception/codeception": "2.1.*"
+    "rhubarbphp/module-leaf": "^1.1.2"
   }
 }
