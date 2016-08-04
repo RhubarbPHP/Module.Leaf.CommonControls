@@ -37,8 +37,10 @@ button.prototype.attachEvents = function () {
         }
 
         if (self.useXmlRpc) {
+            var viewIndex = self.getViewIndex();
             self.raiseServerEvent(
                 "buttonPressed",
+                viewIndex,
                 function (response) {
                     self.raiseClientEvent("ButtonPressCompleted", response);
                 },
