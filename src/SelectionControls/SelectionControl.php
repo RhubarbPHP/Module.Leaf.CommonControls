@@ -70,7 +70,7 @@ class SelectionControl extends Control
 
             if ($item instanceof Collection) {
                 foreach ($item as $key => $model) {
-                    $items[] = $this->makeItem($key, $model->getLabel(), $this->getDataForItem($model));
+                    $items[] = $this->makeItem($this->getValueForItem($key), $model->getLabel(), $this->getDataForItem($model));
                 }
             } elseif ($item instanceof MySqlEnumColumn) {
                 $enumValues = $item->enumValues;
@@ -216,9 +216,7 @@ class SelectionControl extends Control
                     $value = $this->convertValueToModel($value);
                 }
 
-                $optionValue = ($value instanceof Model) ? $value->UniqueIdentifier : $value;
-
-                $item = $this->makeItem($optionValue, $this->getLabelForItem($value), $this->getDataForItem($value));
+                $item = $this->makeItem($this->getValueForItem($value), $this->getLabelForItem($value), $this->getDataForItem($value));
             }
 
             $selectedItems[] = $item;
@@ -226,6 +224,11 @@ class SelectionControl extends Control
 
         $this->model->value = $selectedItems;
         $this->model->selectedItems = $selectedItems;
+    }
+
+    protected function getValueForItem($value)
+    {
+        return ($value instanceof Model) ? $value->UniqueIdentifier : $value;
     }
 
     public function setValue($bindingValue)

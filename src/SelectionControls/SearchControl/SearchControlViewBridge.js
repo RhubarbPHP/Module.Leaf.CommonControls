@@ -64,7 +64,7 @@ searchControl.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlV
 searchControl.prototype.constructor = searchControl;
 
 searchControl.prototype.attachSearchInterfaceToDom = function(){
-    this.viewNode.parentNode.appendChild(this.interfaceContainer)
+    this.viewNode.parentNode.insertBefore(this.interfaceContainer, this.viewNode.nextSibling);
 };
 
 searchControl.prototype.createDom = function () {
