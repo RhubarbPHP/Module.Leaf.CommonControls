@@ -64,6 +64,12 @@ class DateView extends ControlView
         if ($value !== null){
             $date = new RhubarbDate($request->post($path."_year")."-".$request->post($path."_month")."-".$request->post($path."_day"));
             $this->model->setValue($date);
+        } else {
+            $value = $request->post($path);
+            if ($value !== null) {
+                $date = new RhubarbDate($value);
+                $this->model->setValue($date);
+            }
         }
     }
 

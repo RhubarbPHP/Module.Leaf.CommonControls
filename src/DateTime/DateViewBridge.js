@@ -20,7 +20,7 @@ bridge.prototype.setValue = function(value){
 };
 
 bridge.prototype.getValue = function(){
-    var date = new Date(
+    return new Date(
         document.getElementById(this.leafPath + "_year").value,
         document.getElementById(this.leafPath + "_month").value-1,
         document.getElementById(this.leafPath + "_day").value,
@@ -29,8 +29,14 @@ bridge.prototype.getValue = function(){
         0,
         0
     );
+};
 
-    return date;
+bridge.prototype.getSerializableValue = function() {
+    return this.getValue().toISOString();
+};
+
+bridge.prototype.hasValue = function() {
+    return true;
 };
 
 window.rhubarb.viewBridgeClasses.DateViewBridge = bridge;
