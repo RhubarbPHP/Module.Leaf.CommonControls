@@ -49,6 +49,7 @@ class SelectionControlModel extends ControlModel
     {
         $list = parent::getExposableModelProperties();
         $list[] = "selectedItems";
+        $list[] = "supportsMultipleSelection";
 
         return $list;
     }
