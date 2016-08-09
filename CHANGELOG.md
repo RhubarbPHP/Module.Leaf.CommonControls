@@ -1,6 +1,8 @@
 # Changelog
 
-### 1.0.x
+### 1.0.2
+
+Fixed:	    Selection controls now pass supportsMultipleSelection to their view bridge 
 
 ### 1.0.1
 
