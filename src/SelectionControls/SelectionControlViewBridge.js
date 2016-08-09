@@ -80,7 +80,7 @@ selectionControl.prototype.getSelectedKeyFromValue = function (value) {
     return -1;
 };
 
-selectionControl.prototype.removeItemWithValue = function (value) {
+selectionControl.prototype.unSelectItemWithValue = function (value) {
     for(var i = 0; i < this.model.selectedItems.length; i++){
         if (this.model.selectedItems.value == value){
             this.model.selectedItems.splice(i,1);
