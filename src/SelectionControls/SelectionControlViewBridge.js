@@ -82,7 +82,7 @@ selectionControl.prototype.getSelectedKeyFromValue = function (value) {
 
 selectionControl.prototype.unSelectItemWithValue = function (value) {
     for(var i = 0; i < this.model.selectedItems.length; i++){
-        if (this.model.selectedItems.value == value){
+        if (this.model.selectedItems[i].value == value){
             this.model.selectedItems.splice(i,1);
             return;
         }
