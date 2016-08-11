@@ -1,0 +1,14 @@
+. Text Controls:
+    . TextBox: text/textbox
+    . TextArea: text/textarea
+    . PasswordTextBox: text/password-textbox
+
+. Selection Controls:
+    . The selection control pattern: selection/
+    . DropDown: selection/drop-down
+    . CheckSet: selection/check-set
+    . RadioButtons: selection/radio-buttons
+    . SearchControl: selection/search-control
+
+. Other:
+    . Buttons: buttons
