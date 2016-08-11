@@ -1,7 +1,17 @@
 Buttons
 =======
 
+The ever reliable button is one of the common controls used throughout any web project to perform an action.
 
+The `Button` control class has several properties in addition to the standard control:
+
+setConfirmMessage($confirmMessage)
+:   Sets the confirmation alert message that should be presented when the Button is pressed.
+
+setButtonText($buttonText)
+:   Sets the text to be displayed within the Button.
+
+`ButtonViewBridge` Placeholder for all ButtonViewBridge Events
 
 ## Simple button
 
