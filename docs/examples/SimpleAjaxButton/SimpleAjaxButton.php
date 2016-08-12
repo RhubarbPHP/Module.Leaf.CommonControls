@@ -1,11 +1,11 @@
 <?php
 
-namespace Rhubarb\Leaf\Controls\Common\Examples\SimpleButton;
+namespace Rhubarb\Leaf\Controls\Common\Examples\SimpleAjaxButton;
 
 use Rhubarb\Leaf\Leaves\Leaf;
 use Rhubarb\Leaf\Leaves\LeafModel;
 
-class SimpleButton extends Leaf
+class SimpleAjaxButton extends Leaf
 {
 
     /**
@@ -15,7 +15,7 @@ class SimpleButton extends Leaf
      */
     protected function getViewClass()
     {
-        return SimpleButtonView::class;
+        return SimpleAjaxButtonView::class;
     }
 
     /**
@@ -25,6 +25,6 @@ class SimpleButton extends Leaf
      */
     protected function createModel()
     {
-        return new SimpleButtonModel();
+        return new SimpleAjaxButtonModel();
     }
 }
