@@ -11,6 +11,5 @@ class SimpleAjaxButtonModel extends LeafModel
      */
     public function __construct()
     {
-        $this->simpleButtonText = '';
     }
 }
