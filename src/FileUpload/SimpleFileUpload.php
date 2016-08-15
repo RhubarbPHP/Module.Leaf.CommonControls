@@ -39,15 +39,30 @@ class SimpleFileUpload extends Control
 
     /**
      * An array of accepted file types.
-     *
-     * The values should be either:
-     * 1. A file extension prefixed by . e.g. .pdf
-     * 2. One of the following categories of file: audio/* video/* image/*
-     * 3. A valid mime file type e.g. text/plain
-     *
-     * @var array
+     * @var SimpleFileUploadModel
+     */
+    protected $model;
+
+    /**
+     * @deprecated
      */
     public $filters = [];
+
+    protected function createModel()
+    {
+        $model = new SimpleFileUploadModel();
+
+        return $model;
+    }
+
+    protected function beforeRender()
+    {
+        parent::beforeRender();
+
+        if (sizeof($this->filters)) {
+            $this->setFilters($this->filters);
+        }
+    }
 
     public function __construct($name)
     {
@@ -92,4 +107,20 @@ class SimpleFileUpload extends Control
 
         return $response;
     }
+
+    /**
+     * An array of accepted file types.
+     *
+     * The values should be either:
+     * 1. A file extension prefixed by . e.g. .pdf
+     * 2. One of the following categories of file: audio/* video/* image/*
+     * 3. A valid mime file type e.g. text/plain
+     *
+     * @var array
+     */
+    public function setFilters($array = [])
+    {
+        $this->model->acceptFileTypes = $array;
+    }
+
 }

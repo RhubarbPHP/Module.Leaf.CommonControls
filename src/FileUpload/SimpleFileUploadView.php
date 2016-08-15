@@ -26,14 +26,17 @@ class SimpleFileUploadView extends ControlView
     protected $requiresContainer = false;
     protected $requiresStateInputs = false;
 
-    public $filters = [];
+    /**
+     * @var SimpleFileUploadModel
+     */
+    protected $model;
 
     protected function printViewContent()
     {
         $accepts = "";
 
-        if (sizeof($this->filters) > 0) {
-            $accepts = " accept=\"" . implode(",", $this->filters) . "\"";
+        if (sizeof($this->model->acceptFileTypes) > 0) {
+            $accepts = " accept=\"" . implode(",", $this->model->acceptFileTypes) . "\"";
         }
 
         ?>
