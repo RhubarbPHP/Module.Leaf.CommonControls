@@ -10,5 +10,8 @@
     . RadioButtons: selection/radio-buttons
     . SearchControl: selection/search-control
 
+. File Uploads:
+    . SimpleFileUpload: file/simple
+    [docs/modules/module.leaf.html5upload/docs/toc.txt]
 . Other:
     . Buttons: buttons
