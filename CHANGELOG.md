@@ -1,7 +1,8 @@
 # Changelog
 
-### 1.0.x
+### 1.0.3
 
+Fixed:      Checkboxes now handle being printed with a view index
 
 ### 1.0.2
 

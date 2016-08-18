@@ -41,12 +41,20 @@ class CheckboxView extends ControlView
         // should equal the leaf path of the control. If that is true then we can automatically discover and
         // update our model.
 
-        if ($request->server('REQUEST_METHOD')=="POST") {
-            $value = $request->post($path);
-            if ($value === 'on') {
-                $this->model->setValue(true);
-            } else {
-                $this->model->setValue(false);
+        $value = $request->post($path);
+        if ($value !== null){
+            $this->model->setValue($value);
+        }
+
+        // By default if a control can be represented by a single HTML element then the name of that element
+        // should equal the leaf path of the control. If that is true then we can automatically discover and
+        // update our model.
+
+        $postData = $request->postData;
+
+        foreach($postData as $key => $value){
+            if (preg_match("/".$this->model->leafPath."\(([^)]+)\)$/", $key, $match)){
+                $this->setControlValueForIndex($match[1], true);
             }
         }
     }
