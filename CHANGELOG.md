@@ -1,5 +1,7 @@
 # Changelog
 
+### 1.0.x
+
 ### 1.0.4
 
 Added:	    SimpleFileUpload::setAcceptedFileTypes() provided for file uploads
