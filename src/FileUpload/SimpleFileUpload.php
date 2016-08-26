@@ -38,22 +38,35 @@ class SimpleFileUpload extends Control
     public $fileUploadedEvent;
 
     /**
-     * An array of accepted file types.
-     *
-     * The values should be either:
-     * 1. A file extension prefixed by . e.g. .pdf
-     * 2. One of the following categories of file: audio/* video/* image/*
-     * 3. A valid mime file type e.g. text/plain
-     *
-     * @var array
+     * @var SimpleFileUploadModel
      */
-    public $filters = [];
+    protected $model;
 
     public function __construct($name)
     {
         parent::__construct($name);
 
         $this->fileUploadedEvent = new Event();
+    }
+
+    /**
+     * Sets an array of accepted file types.
+     *
+     * The values should be either:
+     * 1. A file extension prefixed by . e.g. .pdf
+     * 2. One of the following categories of file: audio/* video/* image/*
+     * 3. A valid mime file type e.g. text/plain
+     *
+     * @param array $filters
+     */
+    public function setAcceptedFileTypes($filters = [])
+    {
+        $this->model->acceptFileTypes = $filters;
+    }
+
+    protected function createModel()
+    {
+        return new SimpleFileUploadModel();
     }
 
     protected function getViewClass()
@@ -63,29 +76,27 @@ class SimpleFileUpload extends Control
 
     protected function parseRequest(WebRequest $request)
     {
-        $fileData = $request->files($this->model->leafPath);
-
+        $files = $request->filesData;
         $response = null;
 
-        if ($fileData !== null) {
+        foreach($files as $leafPath => $fileData){
+
+            $targetWithoutIndexes = preg_replace('/\([^)]+\)/', "", $leafPath);
+
+            if (!$targetWithoutIndexes == $this->model->leafPath){
+                continue;
+            }
+
+            if (preg_match('/\(([^)]+)\)/', $leafPath, $match)) {
+                $this->setIndex($match[1]);
+            }
+
             if (isset($fileData["name"])) {
-                if (is_array($fileData["name"])) {
-                    foreach ($fileData["name"] as $index => $name) {
-                        if ($fileData["error"][$index] == UPLOAD_ERR_OK) {
-                            $realIndex = str_replace("_", "", $index);
-                            $response = $this->fileUploadedEvent->raise(
-                                new UploadedFileDetails($name, $fileData["tmp_name"][$index]),
-                                $realIndex
-                            );
-                        }
-                    }
-                } else {
-                    if ($fileData["error"] == UPLOAD_ERR_OK) {
-                        $response = $this->fileUploadedEvent->raise(
-                            new UploadedFileDetails($fileData["name"], $fileData["tmp_name"]),
-                            $this->model->leafIndex
-                        );
-                    }
+                if ($fileData["error"] == UPLOAD_ERR_OK) {
+                    $response = $this->fileUploadedEvent->raise(
+                        new UploadedFileDetails($fileData["name"], $fileData["tmp_name"]),
+                        $this->model->leafIndex
+                    );
                 }
             }
         }
