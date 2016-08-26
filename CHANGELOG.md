@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.4
+
+Added:	    SimpleFileUpload::setAcceptedFileTypes() provided for file uploads
+
 ### 1.0.3
 
 Fixed:      Checkboxes now handle being printed with a view index
