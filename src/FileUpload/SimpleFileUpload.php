@@ -83,7 +83,7 @@ class SimpleFileUpload extends Control
 
             $targetWithoutIndexes = preg_replace('/\([^)]+\)/', "", $leafPath);
 
-            if (!$targetWithoutIndexes == $this->model->leafPath){
+            if ($targetWithoutIndexes !== $this->model->leafPath){
                 continue;
             }
 
