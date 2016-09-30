@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.x
+
+
 ### 1.0.6
 
 * Fixed:	Made it possible for extenders of SimpleFileUpload to upload using events with response values.
