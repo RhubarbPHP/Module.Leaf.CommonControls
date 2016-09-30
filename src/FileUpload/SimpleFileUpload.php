@@ -76,14 +76,34 @@ class SimpleFileUpload extends Control
 
     protected function parseRequest(WebRequest $request)
     {
+        $response = $this->parserForFiles($request);
+
+        parent::parseRequest($request);
+
+        return $response;
+    }
+
+    protected function parserForFiles(WebRequest $request)
+    {
+        return $this->parseRequestForFiles($request);
+    }
+
+    /**
+     * @param WebRequest $request
+     * @param $match
+     * @return null
+     */
+    protected function parseRequestForFiles(WebRequest $request)
+    {
         $files = $request->filesData;
         $response = null;
 
-        foreach($files as $leafPath => $fileData){
+        foreach ($files as $leafPath => $fileData) {
 
             $targetWithoutIndexes = preg_replace('/\([^)]+\)/', "", $leafPath);
+            $leafWithoutIndexes = preg_replace('/\([^)]+\)/', "", $this->model->leafPath);
 
-            if ($targetWithoutIndexes !== $this->model->leafPath){
+            if ($targetWithoutIndexes !== $leafWithoutIndexes) {
                 continue;
             }
 
