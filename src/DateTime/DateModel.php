@@ -21,5 +21,6 @@ use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 
 class DateModel extends ControlModel
 {
-    
+    public $minYear;
+    public $maxYear;
 }
