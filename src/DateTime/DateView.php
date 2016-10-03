@@ -24,6 +24,9 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class DateView extends ControlView
 {
+    /** @var DateModel */
+    protected $model;
+
     protected $requiresContainerDiv = true;
 
     /**
@@ -111,7 +114,7 @@ class DateView extends ControlView
         $date = $this->model->value;
         $year = ($date != null) ? $date->format("Y") : null;
 
-        for($x = 1980; $x <=2030; $x++){
+        for($x = $this->model->minYear; $x <= $this->model->maxYear; $x++){
             $selected = ($year == $x) ? " selected=\"selected\"" : "";
             print "<option value=\"{$x}\"{$selected}>{$x}</option>";
         }

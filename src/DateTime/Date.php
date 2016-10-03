@@ -17,12 +17,37 @@
 
 namespace Rhubarb\Leaf\Controls\Common\DateTime;
 
+use Rhubarb\Crown\DateTime\RhubarbDate;
 use Rhubarb\Leaf\Leaves\Controls\Control;
 
 class Date extends Control
 {
+    /** @var DateModel */
+    protected $model;
+
     protected function getViewClass()
     {
         return DateView::class;
+    }
+
+    protected function createModel()
+    {
+        $model = new DateModel();
+        $model->minYear = 1970;
+        $model->maxYear = 2030;
+        return $model;
+    }
+
+    public function setYearRange($min, $max)
+    {
+        $this->model->minYear = $min;
+        $this->model->maxYear = $max;
+    }
+
+    public function setSensibleAgeRange()
+    {
+        $now = (new RhubarbDate('now'))->format('Y');
+        $start = $now - 100;
+        $this->setYearRange($start, $now);
     }
 }
