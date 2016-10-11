@@ -27,5 +27,5 @@ class DateModel extends ControlModel
 {
     public $minYear = 1970;
     public $maxYear = 2030;
-    public $optional = true;
+    public $optional = false;
 }

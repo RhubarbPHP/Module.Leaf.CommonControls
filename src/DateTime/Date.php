@@ -41,6 +41,11 @@ class Date extends Control
         $this->model->maxYear = $max;
     }
 
+    public function setOptional($optional = true)
+    {
+        $this->model->optional = $optional;
+    }
+
     public function setSensibleAgeRange()
     {
         $now = (new RhubarbDate('now'))->format('Y');
