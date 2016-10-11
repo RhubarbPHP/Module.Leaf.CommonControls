@@ -22,11 +22,11 @@ use Rhubarb\Crown\Request\WebRequest;
 use Rhubarb\Leaf\Leaves\Controls\ControlView;
 use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
+/**
+ * @property DateModel $model
+ */
 class DateView extends ControlView
 {
-    /** @var DateModel */
-    protected $model;
-
     protected $requiresContainerDiv = true;
 
     /**
@@ -41,17 +41,23 @@ class DateView extends ControlView
 
     public function getDeploymentPackage()
     {
-        return new LeafDeploymentPackage(__DIR__."/DateViewBridge.js");
+        return new LeafDeploymentPackage(__DIR__ . "/DateViewBridge.js");
     }
 
     protected function printViewContent()
     {
-        parent::printViewContent();
+        $disabled = '';
+        if ($this->model->optional) {
+            $date = $this->model->value;
+            $checked = $date != null && $date->isValidDateTime();
+            print '<input type="checkbox" name="'.$this->model->leafPath.'_enabled" id="'.$this->model->leafPath.'_enabled" value="1"'.($checked ? ' checked' : '').' />';
 
+            $disabled = $checked ? '' : ' disabled';
+        }
         ?>
-        <select name="<?=$this->model->leafPath;?>_day" id="<?=$this->model->leafPath;?>_day"><?php $this->printDays();?></select>
-        <select name="<?=$this->model->leafPath;?>_month" id="<?=$this->model->leafPath;?>_month"><?php $this->printMonths();?></select>
-        <select name="<?=$this->model->leafPath;?>_year" id="<?=$this->model->leafPath;?>_year"><?php $this->printYears();?></select>
+        <select<?= $disabled; ?> name="<?= $this->model->leafPath; ?>_day" id="<?= $this->model->leafPath; ?>_day"><?php $this->printDays(); ?></select>
+        <select<?= $disabled; ?> name="<?= $this->model->leafPath; ?>_month" id="<?= $this->model->leafPath; ?>_month"><?php $this->printMonths(); ?></select>
+        <select<?= $disabled; ?> name="<?= $this->model->leafPath; ?>_year" id="<?= $this->model->leafPath; ?>_year"><?php $this->printYears(); ?></select>
         <?php
     }
 
@@ -59,13 +65,13 @@ class DateView extends ControlView
     {
         $path = $this->model->leafPath;
 
-        // By default if a control can be represented by a single HTML element then the name of that element
-        // should equal the leaf path of the control. If that is true then we can automatically discover and
-        // update our model.
+        $value = $request->post($path . "_day");
+        if ($value !== null) {
+            if ($this->model->optional && !$request->post($path . "_enabled")) {
+                return null;
+            }
 
-        $value = $request->post($path."_day");
-        if ($value !== null){
-            $date = new RhubarbDate($request->post($path."_year")."-".$request->post($path."_month")."-".$request->post($path."_day"));
+            $date = new RhubarbDate($request->post($path . "_year") . "-" . $request->post($path . "_month") . "-" . $request->post($path . "_day"));
             $this->model->setValue($date);
         } else {
             $value = $request->post($path);
@@ -76,47 +82,37 @@ class DateView extends ControlView
         }
     }
 
-
     private function printDays()
     {
-        /**
-         * @var RhubarbDate $date
-         */
         $date = $this->model->value;
         $day = ($date != null) ? $date->format("d") : null;
 
-        for($x = 1; $x <=31; $x++){
-            $selected = ($day == $x) ? " selected=\"selected\"" : "";
-            print "<option value=\"{$x}\"{$selected}>{$x}</option>";
+        for ($i = 1; $i <= 31; $i++) {
+            $selected = ($day == $i) ? ' selected' : '';
+            print "<option value=\"$i\"$selected>$i</option>";
         }
     }
 
     private function printMonths()
     {
-        /**
-         * @var RhubarbDate $date
-         */
         $date = $this->model->value;
         $month = ($date != null) ? $date->format("m") : null;
 
-        for($x = 1; $x <=12; $x++){
-            $selected = ($month == $x) ? " selected=\"selected\"" : "";
-            $formatted = date("M", mktime(12,1,1,$x,1,2000));
-            print "<option value=\"{$x}\"{$selected}>{$formatted}</option>";
+        for ($i = 1; $i <= 12; $i++) {
+            $selected = ($month == $i) ? ' selected' : '';
+            $formatted = date("M", mktime(12, 1, 1, $i, 1, 2000));
+            print "<option value=\"$i\"$selected>$formatted</option>";
         }
     }
 
     private function printYears()
     {
-        /**
-         * @var RhubarbDate $date
-         */
         $date = $this->model->value;
         $year = ($date != null) ? $date->format("Y") : null;
 
-        for($x = $this->model->minYear; $x <= $this->model->maxYear; $x++){
-            $selected = ($year == $x) ? " selected=\"selected\"" : "";
-            print "<option value=\"{$x}\"{$selected}>{$x}</option>";
+        for ($i = $this->model->minYear; $i <= $this->model->maxYear; $i++) {
+            $selected = ($year == $i) ? ' selected' : '';
+            print "<option value=\"$i\"$selected>$i</option>";
         }
     }
 }

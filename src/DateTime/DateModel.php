@@ -17,10 +17,15 @@
 
 namespace Rhubarb\Leaf\Controls\Common\DateTime;
 
+use Rhubarb\Crown\DateTime\RhubarbDate;
 use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 
+/**
+ * @property RhubarbDate $value
+ */
 class DateModel extends ControlModel
 {
-    public $minYear;
-    public $maxYear;
+    public $minYear = 1970;
+    public $maxYear = 2030;
+    public $optional = true;
 }
