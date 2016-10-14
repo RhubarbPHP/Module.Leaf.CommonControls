@@ -2,6 +2,9 @@
 
 ### 1.0.x
 
+### 1.0.7
+
+* Fixed:    Bug which prevented checkbox values from being unset
 
 ### 1.0.6
 

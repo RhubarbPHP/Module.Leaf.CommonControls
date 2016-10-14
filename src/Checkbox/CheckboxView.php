@@ -9,10 +9,25 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class CheckboxView extends ControlView
 {
+    protected $requiresStateInput = false;
+
     protected function printViewContent()
     {
-        $checked = ($this->model->value) ? ' checked="checked"' : '';
-        ?><input type="checkbox" <?=$this->getNameValueClassAndAttributeString(false).$checked;?>/><?php
+        $attributes = $this->getNameValueClassAndAttributeString(false);
+        $attributes .= $this->model->value ? ' checked="checked"' : '';
+
+        // include a hidden presence input, because on submit if the checkbox is unchecked it won't be included in the
+        // POST data. The presence input can be used to detect that the input has been submitted and should be FALSE.
+        $presence = $this->getPresenceInputName();
+        print "<input type='checkbox' {$attributes}/><input type='hidden' name='{$presence}' value='0'>";
+    }
+
+    /**
+     * @return string
+     */
+    private function getPresenceInputName()
+    {
+        return "set_{$this->model->leafPath}_";
     }
 
     /**
@@ -30,7 +45,7 @@ class CheckboxView extends ControlView
      */
     public function getDeploymentPackage()
     {
-        return new LeafDeploymentPackage(__DIR__."/CheckboxViewBridge.js");
+        return new LeafDeploymentPackage(__DIR__ . "/CheckboxViewBridge.js");
     }
 
     protected function parseRequest(WebRequest $request)
@@ -42,8 +57,13 @@ class CheckboxView extends ControlView
         // update our model.
 
         $value = $request->post($path);
-        if ($value !== null){
-            $this->model->setValue($value);
+        if (isset($value)) {
+            $this->model->setValue(true);
+        } else {
+            $presence = $request->post($this->getPresenceInputName());
+            if (isset($presence)) {
+                $this->model->setValue(false);
+            }
         }
 
         // By default if a control can be represented by a single HTML element then the name of that element
@@ -52,9 +72,13 @@ class CheckboxView extends ControlView
 
         $postData = $request->postData;
 
-        foreach($postData as $key => $value){
-            if (preg_match("/".$this->model->leafPath."\(([^)]+)\)$/", $key, $match)){
+        foreach ($postData as $key => $value) {
+            if (preg_match("/" . $path . "\(([^)]+)\)$/", $key, $match)) {
                 $this->setControlValueForIndex($match[1], true);
+            } else {
+                if (preg_match("/" . $this->getPresenceInputName() . "\(([^)]+)\)$/", $key, $match)) {
+                    $this->setControlValueForIndex($match[1], false);
+                }
             }
         }
     }
