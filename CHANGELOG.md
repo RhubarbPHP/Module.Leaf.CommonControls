@@ -2,6 +2,17 @@
 
 ### 1.0.x
 
+### 1.0.9
+
+* Fixed:    Bug which prevented checkbox values from being unset
+* Added:    Missing changelog entries
+
+### 1.0.8
+
+* Added:    checkbox to allow specifying whether the date dropdowns should be used or not
+* Fixed:    Defaulted Date's "optional" setting to false to retain past behaviour in existing systems.
+* Added:    Setter for the property optional Date property
+
 ### 1.0.7
 
 * Fixed:    Bug which prevented checkbox values from being unset
