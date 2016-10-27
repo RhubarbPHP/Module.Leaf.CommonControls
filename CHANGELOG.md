@@ -1,6 +1,10 @@
 # Changelog
 
-### 1.0.x
+### 1.0.*
+
+### 1.0.10
+
+* Added:    Added reset ability to the Simple File Uploader
 
 ### 1.0.9
 
