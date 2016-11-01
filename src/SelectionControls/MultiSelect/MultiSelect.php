@@ -16,4 +16,13 @@ class MultiSelect extends SelectionControl
     {
         return true;
     }
+
+    protected function onModelCreated()
+    {
+        parent::onModelCreated();
+
+        $this->model->addHtmlAttribute("multiple", "multiple");
+    }
+
+
 }
