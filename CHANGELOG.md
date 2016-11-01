@@ -2,6 +2,11 @@
 
 ### 1.0.*
 
+### 1.0.12
+
+* Fixed:    id on the DropDown view not using the correct id when multiple
+            selection is enabled
+
 ### 1.0.11
 
 * Added:    Added Multi Select Leaf
