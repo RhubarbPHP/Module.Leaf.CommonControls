@@ -17,6 +17,4 @@ class MultiSelect extends DropDown
 
         $this->model->addHtmlAttribute("multiple", "multiple");
     }
-
-
 }
