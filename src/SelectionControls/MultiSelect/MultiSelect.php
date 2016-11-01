@@ -2,16 +2,10 @@
 
 namespace Rhubarb\Leaf\Controls\Common\SelectionControls\MultiSelect;
 
-use Rhubarb\Leaf\Controls\Common\SelectionControls\DropDown\DropDownView;
-use Rhubarb\Leaf\Controls\Common\SelectionControls\SelectionControl;
+use Rhubarb\Leaf\Controls\Common\SelectionControls\DropDown\DropDown;
 
-class MultiSelect extends SelectionControl
+class MultiSelect extends DropDown
 {
-    protected function getViewClass()
-    {
-        return DropDownView::class;
-    }
-
     protected function supportsMultipleSelection()
     {
         return true;
