@@ -2,6 +2,10 @@
 
 ### 1.0.*
 
+### 1.0.11
+
+* Added:    Added Multi Select Leaf
+
 ### 1.0.10
 
 * Added:    Added reset ability to the Simple File Uploader
