@@ -2,6 +2,10 @@
 
 ### 1.0.*
 
+### 1.0.13
+
+* Added:    Included a setter to control whether xhr support is enabled
+
 ### 1.0.12
 
 * Fixed:    id on the DropDown view not using the correct id when multiple
