@@ -2,6 +2,10 @@
 
 ### 1.0.*
 
+### 1.0.14
+
+* Added:    Hidden input control
+
 ### 1.0.13
 
 * Added:    Included a setter to control whether xhr support is enabled
