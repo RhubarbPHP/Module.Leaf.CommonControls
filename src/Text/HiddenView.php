@@ -7,12 +7,20 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class HiddenView extends ControlView
 {
-    protected $htmlTypeAttribute = "hidden";
-
     protected function printViewContent()
     {
         ?>
-        <input type="<?=$this->htmlTypeAttribute;?>" <?=$this->getNameValueClassAndAttributeString();?>/>
+        <input type="hidden" <?= $this->getNameValueClassAndAttributeString(); ?>/>
         <?php
+    }
+
+    public function getDeploymentPackage()
+    {
+        return new LeafDeploymentPackage(__DIR__ . '/HiddenViewBridge.js');
+    }
+
+    protected function getViewBridgeName()
+    {
+        return "HiddenViewBridge";
     }
 }
