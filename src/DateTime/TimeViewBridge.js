@@ -19,7 +19,7 @@ bridge.prototype.setValue = function( value )
 	}
 	else if( typeof value == "object" && value instanceof Date )
 	{
-		this.findChildViewBridge( "hours" ).setValue( value.getHours() );
+		this.findChildViewBridge( "hours" ).setValue( value.getHours().pad() );
 		this.findChildViewBridge( "minutes" ).setValue( value.getMinutes().pad() );
 	}
 };
