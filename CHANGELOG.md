@@ -1,6 +1,8 @@
 # Changelog
 
-### 1.0.*
+### 1.0.11
+
+* Fixed:    Some remenant issues from jquery being pulled out.
 
 ### 1.0.14
 
