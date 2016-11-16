@@ -60,15 +60,17 @@ abstract class SearchControl extends SelectionControl
         return parent::isValueSelectable($value);
     }
 
-    protected function createModel()
+    protected function onModelCreated()
     {
-        $model = new SearchControlModel();
+        parent::onModelCreated();
+
+        $model = $this->model;
         $model->resultColumns = $this->getResultColumns();
         $model->searchPressedEvent->attachHandler(function($phrase){
             $this->model->searchPhrase = $phrase;
             return $this->getCurrentlyAvailableSelectionItems();
         });
-        
+
         $model->itemSelectedEvent->attachHandler(function($selectedId){
             $this->model->value = [$selectedId];
 
@@ -83,8 +85,11 @@ abstract class SearchControl extends SelectionControl
 
             return $item;
         });
+    }
 
-        return $model;
+    protected function createModel()
+    {
+        return new SearchControlModel();
     }
 
     protected abstract function getResultColumns();
