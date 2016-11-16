@@ -1,8 +1,16 @@
 # Changelog
 
-### 1.0.11
+### 1.0.17
 
 * Fixed:    Some remenant issues from jquery being pulled out.
+
+### 1.0.16
+
+* Added:    Hours need to be padded to match value in dropdown
+
+### 1.0.15
+
+* Added:    Added a ViewBridge to Hidden leaf
 
 ### 1.0.14
 
