@@ -1,11 +1,12 @@
 # Changelog
 
-### 1.0.x
+### 1.0.18
 
+* Added:    Allowing setting of textbox input type
 
 ### 1.0.17
 
-* Fixed:    Some remenant issues from jquery being pulled out.
+* Fixed:    Some remnant issues from jquery being pulled out.
 
 ### 1.0.16
 
