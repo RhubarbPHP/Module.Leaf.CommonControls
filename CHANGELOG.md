@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.19
+
+* Fixed:    PasswordTextBox now sets input type the new way TextBox uses it
+
 ### 1.0.18
 
 * Added:    Allowing setting of textbox input type
