@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.20
+
+* Fixed:    Drop downs now reattach properly from a server side refresh
+
 ### 1.0.19
 
 * Fixed:    PasswordTextBox now sets input type the new way TextBox uses it
