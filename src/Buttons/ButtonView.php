@@ -23,7 +23,7 @@ class ButtonView extends ControlView
         $xhrAttribute = ($this->model->useXhr) ? ' xmlrpc="yes"' : '';
 
         ?>
-        <input leaf-name="<?=$this->model->leafName;?>" type="submit" name="<?=$this->model->leafPath;?>" id="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes.$confirmAttribute.$xhrAttribute;?> />
+        <input leaf-name="<?=$this->model->leafName;?>" type="<?=$this->model->type?>" name="<?=$this->model->leafPath;?>" id="<?=$this->model->leafPath;?>" value="<?=htmlentities($this->model->text);?>"<?=$classes.$otherAttributes.$confirmAttribute.$xhrAttribute;?> />
         <?php
     }
 

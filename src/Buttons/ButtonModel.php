@@ -24,6 +24,11 @@ class ButtonModel extends ControlModel
      */
     public $buttonPressedEvent;
 
+    /**
+     * @var string
+     */
+    public $type = 'submit';
+
     public function __construct()
     {
         $this->buttonPressedEvent = new Event();

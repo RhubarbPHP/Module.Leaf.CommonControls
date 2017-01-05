@@ -76,4 +76,13 @@ class Button extends Control
 
         return $model;
     }
+
+    /**
+     * Set the input type
+     * @param $type
+     */
+    public function setButtonType($type)
+    {
+        $this->model->type = $type;
+    }
 }
