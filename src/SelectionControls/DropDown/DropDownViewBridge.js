@@ -5,6 +5,20 @@ var dropDown = function (leafPath) {
         return;
     }
 
+    this.populateSelectedItemsFromDom();
+
+    // hasAttribute would be better - but this isn't IE 7 compatible
+    this.supportsMultipleSelection = ( this.viewNode.getAttribute("multiple") != null );
+};
+
+dropDown.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlViewBridge();
+dropDown.prototype.constructor = dropDown;
+
+dropDown.prototype.onReattached = function(){
+    this.populateSelectedItemsFromDom();
+};
+
+dropDown.prototype.populateSelectedItemsFromDom = function(){
     // As this view bridge doesn't carry a hidden state we need to build
     // the SelectedItems.
     var selectedItems = [];
@@ -22,13 +36,7 @@ var dropDown = function (leafPath) {
     });
 
     this.model.selectedItems = selectedItems;
-
-    // hasAttribute would be better - but this isn't IE 7 compatible
-    this.supportsMultipleSelection = ( this.viewNode.getAttribute("multiple") != null );
 };
-
-dropDown.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlViewBridge();
-dropDown.prototype.constructor = dropDown;
 
 dropDown.spawn = function (spawnSettings, viewIndex, parentPresenterPath) {
     var element = document.createElement("SELECT");

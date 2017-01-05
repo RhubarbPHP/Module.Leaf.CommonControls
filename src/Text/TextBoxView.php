@@ -7,13 +7,15 @@ use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 
 class TextBoxView extends ControlView
 {
+    /** @var  TextBoxModel */
+    protected $model;
+
     protected $requiresStateInput = false;
-    protected $htmlTypeAttribute = "text";
 
     protected function printViewContent()
     {
         ?>
-        <input type="<?=$this->htmlTypeAttribute;?>" <?=$this->getNameValueClassAndAttributeString();?>/>
+        <input type="<?= $this->model->inputType; ?>" <?= $this->getNameValueClassAndAttributeString(); ?>/>
         <?php
     }
 

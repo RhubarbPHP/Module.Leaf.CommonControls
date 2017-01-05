@@ -1,7 +1,64 @@
 # Changelog
 
-### 1.0.x
+### 1.0.20
 
+* Fixed:    Drop downs now reattach properly from a server side refresh
+
+### 1.0.19
+
+* Fixed:    PasswordTextBox now sets input type the new way TextBox uses it
+
+### 1.0.18
+
+* Added:    Allowing setting of textbox input type
+
+### 1.0.17
+
+* Fixed:    Some remnant issues from jquery being pulled out.
+
+### 1.0.16
+
+* Added:    Hours need to be padded to match value in dropdown
+
+### 1.0.15
+
+* Added:    Added a ViewBridge to Hidden leaf
+
+### 1.0.14
+
+* Added:    Hidden input control
+
+### 1.0.13
+
+* Added:    Included a setter to control whether xhr support is enabled
+
+### 1.0.12
+
+* Fixed:    id on the DropDown view not using the correct id when multiple
+            selection is enabled
+
+### 1.0.11
+
+* Added:    Added Multi Select Leaf
+
+### 1.0.10
+
+* Added:    Added reset ability to the Simple File Uploader
+
+### 1.0.9
+
+* Fixed:    Bug which prevented checkbox values from being unset
+* Added:    Missing changelog entries
+
+### 1.0.8
+
+* Added:    checkbox to allow specifying whether the date dropdowns should be used or not
+* Fixed:    Defaulted Date's "optional" setting to false to retain past behaviour in existing systems.
+* Added:    Setter for the property optional Date property
+
+### 1.0.7
+
+* Fixed:    Bug which prevented checkbox values from being unset
 
 ### 1.0.6
 

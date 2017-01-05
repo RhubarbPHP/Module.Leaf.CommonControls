@@ -20,11 +20,11 @@ namespace Rhubarb\Leaf\Controls\Common\DateTime;
 use Rhubarb\Crown\DateTime\RhubarbDate;
 use Rhubarb\Leaf\Leaves\Controls\Control;
 
+/**
+ * @property DateModel $model
+ */
 class Date extends Control
 {
-    /** @var DateModel */
-    protected $model;
-
     protected function getViewClass()
     {
         return DateView::class;
@@ -32,16 +32,18 @@ class Date extends Control
 
     protected function createModel()
     {
-        $model = new DateModel();
-        $model->minYear = 1970;
-        $model->maxYear = 2030;
-        return $model;
+        return new DateModel();
     }
 
     public function setYearRange($min, $max)
     {
         $this->model->minYear = $min;
         $this->model->maxYear = $max;
+    }
+
+    public function setOptional($optional = true)
+    {
+        $this->model->optional = $optional;
     }
 
     public function setSensibleAgeRange()

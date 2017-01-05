@@ -4,8 +4,6 @@ namespace Rhubarb\Leaf\Controls\Common\Buttons;
 
 use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Controls\Control;
-use Rhubarb\Leaf\Leaves\Leaf;
-use Symfony\Component\EventDispatcher\Tests\CallableClass;
 
 /**
  * The Button leaf is used to raise action events.
@@ -40,12 +38,6 @@ class Button extends Control
         }
     }
 
-    public function runBeforeRenderCallbacks()
-    {
-        parent::runBeforeRenderCallbacks();
-    }
-
-
     public function setConfirmMessage($confirmMessage)
     {
         $this->model->confirmMessage = $confirmMessage;
@@ -59,6 +51,11 @@ class Button extends Control
     public function setButtonText($buttonText)
     {
         $this->model->text = $buttonText;
+    }
+
+    public function setUseXhr($useXhr)
+    {
+        $this->model->useXhr = $useXhr;
     }
     
     protected function createModel()

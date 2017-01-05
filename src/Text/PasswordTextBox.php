@@ -4,8 +4,10 @@ namespace Rhubarb\Leaf\Controls\Common\Text;
 
 class PasswordTextBox extends TextBox
 {
-    protected function getViewClass()
+    protected function onModelCreated()
     {
-        return PasswordTextBoxView::class;
+        $this->model->inputType = 'password';
+
+        parent::onModelCreated();
     }
 }

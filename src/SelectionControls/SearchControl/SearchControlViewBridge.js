@@ -10,6 +10,12 @@ var searchControl = function (leafPath) {
 
     if (arguments.length) {
 
+        if (this.viewNode.tagName == "INPUT") {
+            this.valueNode = this.viewNode;
+        } else {
+            this.valueNode = this.viewNode.querySelector('input[type=hidden]');
+        }
+
         // Attach interface
         this.attachSearchInterfaceToDom();
 
@@ -64,7 +70,7 @@ searchControl.prototype = new window.rhubarb.viewBridgeClasses.SelectionControlV
 searchControl.prototype.constructor = searchControl;
 
 searchControl.prototype.attachSearchInterfaceToDom = function(){
-    this.viewNode.parentNode.insertBefore(this.interfaceContainer, this.viewNode.nextSibling);
+    this.valueNode.parentNode.insertBefore(this.interfaceContainer, this.valueNode.nextSibling);
 };
 
 searchControl.prototype.createDom = function () {
@@ -125,8 +131,8 @@ searchControl.prototype.setWidth = function (width) {
 };
 
 searchControl.prototype.setValue = function (value) {
-    if (this.viewNode && ( "value" in this.viewNode )) {
-        this.viewNode.value = value;
+    if (this.valueNode && ( "value" in this.valueNode )) {
+        this.valueNode.value = value;
     }
 
     if (value == "" || value == "0") {
@@ -275,7 +281,7 @@ searchControl.prototype.highlightKeyboardSelection = function () {
 
 searchControl.prototype.changeState = function (newState) {
     if (newState == 'not-searching') {
-        newState = ( this.viewNode.value != '' && this.viewNode.value != '0' ) ? 'selected' : 'unselected';
+        newState = ( this.valueNode.value != '' && this.valueNode.value != '0' ) ? 'selected' : 'unselected';
     }
 
     this._state = newState;
@@ -395,7 +401,7 @@ searchControl.prototype.itemSelected = function (result) {
 };
 
 searchControl.prototype.setInternalValue = function (value) {
-    this.viewNode.value = value;
+    this.valueNode.value = value;
     this.changeState('selected');
 };
 
