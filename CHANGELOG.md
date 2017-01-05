@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.21
+
+* Fixed:     AJAX checkbox value parsing
+
 ### 1.0.20
 
 * Fixed:    Drop downs now reattach properly from a server side refresh
