@@ -33,7 +33,7 @@ class Button extends Control
         $this->model->useXhr = $useXhr;
         $this->buttonPressedEvent = new Event();
 
-        if ($pressedCallback){
+        if ($pressedCallback) {
             $this->buttonPressedEvent->attachHandler($pressedCallback);
         }
     }
@@ -57,12 +57,12 @@ class Button extends Control
     {
         $this->model->useXhr = $useXhr;
     }
-    
+
     protected function createModel()
     {
         $model = new ButtonModel();
-        $model->buttonPressedEvent->attachHandler(function(...$arguments){
-            if ($this->model->useXhr){
+        $model->buttonPressedEvent->attachHandler(function (...$arguments) {
+            if ($this->model->useXhr) {
                 return $this->buttonPressedEvent->raise(...$arguments);
             } else {
                 $this->runBeforeRender(function () use ($arguments) {
@@ -72,5 +72,20 @@ class Button extends Control
         });
 
         return $model;
+    }
+
+    /**
+     * Allows changing the HTML input type from default "submit"
+     *
+     * @param string $type e.g. "submit", "button", "reset"
+     * @param bool $submitFormOnClick If true, javascript will
+     */
+    public function setButtonType($type, $submitFormOnClick = false)
+    {
+        $this->model->type = $type;
+
+        if ($submitFormOnClick) {
+            $this->model->addCssClassNames("submit-on-click");
+        }
     }
 }
