@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.21
+
+* Added:    The HTML type of a Button can be changed from default "submit"
+
 ### 1.0.20
 
 * Fixed:    Drop downs now reattach properly from a server side refresh
