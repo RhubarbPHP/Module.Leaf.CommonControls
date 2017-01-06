@@ -1,8 +1,12 @@
 # Changelog
 
-### 1.0.21
+### 1.0.22
 
 * Added:    The HTML type of a Button can be changed from default "submit"
+
+### 1.0.21
+
+* Fixed:    AJAX checkbox value parsing
 
 ### 1.0.20
 

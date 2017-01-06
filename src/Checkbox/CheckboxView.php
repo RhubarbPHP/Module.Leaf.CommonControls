@@ -58,7 +58,7 @@ class CheckboxView extends ControlView
 
         $value = $request->post($path);
         if (isset($value)) {
-            $this->model->setValue(true);
+            $this->model->setValue((bool) $value);
         } else {
             $presence = $request->post($this->getPresenceInputName());
             if (isset($presence)) {
