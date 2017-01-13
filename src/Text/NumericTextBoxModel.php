@@ -17,9 +17,7 @@
 
 namespace Rhubarb\Leaf\Controls\Common\Text;
 
-use Rhubarb\Leaf\Leaves\Controls\ControlModel;
-
-class NumericTextBoxModel extends ControlModel
+class NumericTextBoxModel extends TextBoxModel
 {
     /**
      * The number of decimal places to display
