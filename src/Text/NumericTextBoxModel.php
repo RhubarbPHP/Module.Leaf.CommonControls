@@ -19,6 +19,8 @@ namespace Rhubarb\Leaf\Controls\Common\Text;
 
 class NumericTextBoxModel extends TextBoxModel
 {
+    public $inputType = 'tel';
+
     /**
      * The number of decimal places to display
      * @var int
