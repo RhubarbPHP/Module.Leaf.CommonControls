@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.0.23
+
+* Fixed:    Error when using NumericTextBox due to its model not having the $type property
+* Changed:  Set numeric textbox to use "tel" type so it gives a numeric textpad on mobile without showing up/down arrows in chrome
+
 ### 1.0.22
 
 * Added:    The HTML type of a Button can be changed from default "submit"
