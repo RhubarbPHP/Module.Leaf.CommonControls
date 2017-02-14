@@ -22,4 +22,55 @@ use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 class SimpleFileUploadModel extends ControlModel
 {
     public $acceptFileTypes = [];
+
+    public $maxFileSize;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->maxFileSize = $this->getMaximumFileUploadSize();
+    }
+
+    private function convertPhpSizeToBytes($size)
+    {
+        if ( is_numeric( $size) ) {
+            return $size;
+        }
+
+        $suffix = substr($size, -1);
+        $value = substr($size, 0, -1);
+        
+        switch(strtoupper($suffix)){
+            case 'P':
+                $value *= 1024;
+            case 'T':
+                $value *= 1024;
+            case 'G':
+                $value *= 1024;
+            case 'M':
+                $value *= 1024;
+            case 'K':
+                $value *= 1024;
+                break;
+        }
+        return $value;
+    }
+
+    private function getMaximumFileUploadSize()
+    {
+        return min(
+            $this->convertPhpSizeToBytes(ini_get('post_max_size')),
+            $this->convertPhpSizeToBytes(ini_get('upload_max_filesize'))
+        );
+    }
+
+    protected function getExposableModelProperties()
+    {
+        $list = parent::getExposableModelProperties();
+        $list[] = "acceptFileType";
+        $list[] = "maxFileSize";
+
+        return $list;
+    }
 }

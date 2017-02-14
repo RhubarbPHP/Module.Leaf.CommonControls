@@ -36,7 +36,7 @@ class SimpleFileUpload extends Control
      * @var Event
      */
     public $fileUploadedEvent;
-
+    
     /**
      * @var SimpleFileUploadModel
      */
@@ -76,16 +76,11 @@ class SimpleFileUpload extends Control
 
     protected function parseRequest(WebRequest $request)
     {
-        $response = $this->parserForFiles($request);
+        $response = $this->parseRequestForFiles($request);
 
         parent::parseRequest($request);
 
         return $response;
-    }
-
-    protected function parserForFiles(WebRequest $request)
-    {
-        return $this->parseRequestForFiles($request);
     }
 
     /**
