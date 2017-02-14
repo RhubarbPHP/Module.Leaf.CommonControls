@@ -1,5 +1,10 @@
 # Changelog
 
+
+### 1.0.24
+
+* Added:    Added maxFileSize to SimpleFileUpload
+
 ### 1.0.23
 
 * Fixed:    Error when using NumericTextBox due to its model not having the $type property
