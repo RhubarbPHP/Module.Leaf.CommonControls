@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.25
+
+* Added:    Failed uploads now throw exceptions
 
 ### 1.0.24
 
