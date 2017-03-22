@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.26
+
+* Change:   Added a span around check set labels
+
 ### 1.0.25
 
 * Added:    Failed uploads now throw exceptions
