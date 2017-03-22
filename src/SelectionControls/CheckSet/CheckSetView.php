@@ -36,6 +36,12 @@ class CheckSetView extends SetSelectionControlView
 
     public function getItemOptionHtml($value, $label, $item, $classSuffix = "")
     {
-        return parent::getItemOptionHtml($value, $label, $item, "checkbox");
+        $name = $this->model->leafPath;
+        $id = $this->getInputId($name, $value);
+
+        $inputHtml = $this->getInputHtml($name, $value, $item, $id);
+
+
+        return '<label>' . $inputHtml . '&nbsp;' . '<span>'.$label . '</span></label>';
     }
 }
