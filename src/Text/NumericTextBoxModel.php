@@ -26,4 +26,11 @@ class NumericTextBoxModel extends TextBoxModel
      * @var int
      */
     public $decimalPlaces = 2;
+
+    public function setValue($value)
+    {
+        $value = preg_replace("/[^0-9\\.]/", "", $value);
+
+        parent::setValue($value);
+    }
 }
