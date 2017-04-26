@@ -20,6 +20,7 @@ namespace Rhubarb\Leaf\Controls\Common\FileUpload;
 
 use Rhubarb\Crown\Context;
 use Rhubarb\Crown\Events\Event;
+use Rhubarb\Crown\Request\Request;
 use Rhubarb\Crown\Request\WebRequest;
 use Rhubarb\Leaf\Controls\Common\FileUpload\Exceptions\FileUploadedException;
 use Rhubarb\Leaf\Leaves\Controls\Control;
@@ -70,6 +71,32 @@ class SimpleFileUpload extends Control
         return new SimpleFileUploadModel();
     }
 
+    protected function onModelCreated()
+    {
+        parent::onModelCreated();
+
+        $this->model->fileUploadedEvent->attachHandler(function(){
+
+            $fileData = Request::current()->files($this->model->leafPath);
+            $response = false;
+
+            if (isset($fileData["name"]) && $fileData["name"] != '') {
+                if ($fileData["error"] == UPLOAD_ERR_OK) {
+                    $response = $this->fileUploadedEvent->raise(
+                        new UploadedFileDetails($fileData["name"], $fileData["tmp_name"]),
+                        $this->model->leafIndex
+                    );
+                } else {
+                    throw new FileUploadedException("The file did not upload correctly", $fileData);
+                }
+            }
+
+           return $response;
+        });
+
+    }
+
+
     protected function getViewClass()
     {
         return SimpleFileUploadView::class;
@@ -91,6 +118,10 @@ class SimpleFileUpload extends Control
      */
     protected function parseRequestForFiles(WebRequest $request)
     {
+        if ($request->header("Accept","") == "application/leaf"){
+            return;
+        }
+
         $files = $request->filesData;
         $response = null;
 
