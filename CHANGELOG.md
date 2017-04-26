@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.28
+
+* Change:   SimpleFileUpload now supports return response from server to client as event responses
+
 ### 1.0.27
 
 * Added:    NumericTextBox now strips commas (and other non digit characters) from the value.
