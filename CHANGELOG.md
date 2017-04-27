@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.29
+
+* Fix:	    Missing upload model property
+
 ### 1.0.28
 
 * Change:   SimpleFileUpload now supports return response from server to client as event responses
