@@ -17,6 +17,7 @@
 
 namespace Rhubarb\Leaf\Controls\Common\FileUpload;
 
+use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Controls\ControlModel;
 
 class SimpleFileUploadModel extends ControlModel
@@ -25,11 +26,14 @@ class SimpleFileUploadModel extends ControlModel
 
     public $maxFileSize;
 
+    public $fileUploadedEvent;
+
     public function __construct()
     {
         parent::__construct();
 
         $this->maxFileSize = $this->getMaximumFileUploadSize();
+        $this->fileUploadedEvent = new Event();
     }
 
     private function convertPhpSizeToBytes($size)
