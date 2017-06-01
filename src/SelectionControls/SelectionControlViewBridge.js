@@ -14,7 +14,7 @@ selectionControl.prototype = new window.rhubarb.viewBridgeClasses.ViewBridge();
 selectionControl.prototype.constructor = selectionControl;
 
 selectionControl.prototype.setCurrentlyAvailableSelectionItems = function (items) {
-
+    this.model.selectionItems = items;
 };
 
 selectionControl.prototype.setValue = function (value) {
@@ -94,7 +94,7 @@ selectionControl.prototype.hasValue = function () {
 };
 
 selectionControl.prototype.fetchAvailableSelectionItems = function () {
-    var params = ["UpdateAvailableSelectionItems"];
+    var params = ["updateAvailableSelectionItems"];
 
     for (var i = 0; i < arguments.length; i++) {
         params[params.length] = arguments[i];

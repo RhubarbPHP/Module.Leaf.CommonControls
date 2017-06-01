@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.30
+
+* Fixed:    Restored updateAvailableSelectionItemsEvent for selection controls
+
 ### 1.0.29
 
 * Fix:	    Missing upload model property

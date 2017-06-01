@@ -40,18 +40,23 @@ class SelectionControl extends Control
 
     protected function createModel()
     {
-        $model = new SelectionControlModel();
-        $model->supportsMultipleSelection = $this->supportsMultipleSelection();
-        $model->updateAvailableSelectionItems->attachHandler(function () {
+        return new SelectionControlModel();
+    }
+
+    protected function onModelCreated()
+    {
+        parent::onModelCreated();
+
+        $this->model->supportsMultipleSelection = $this->supportsMultipleSelection();
+        $this->model->updateAvailableSelectionItemsEvent->attachHandler(function () {
             $args = func_get_args();
 
             call_user_func_array([$this, "updateAvailableSelectionItems"], $args);
 
             return $this->getCurrentlyAvailableSelectionItems();
         });
-
-        return $model;
     }
+
 
     protected $selectionItems = [];
 
