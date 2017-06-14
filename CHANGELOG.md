@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.0.31
+
+* Added:    DateTime control
+* Changed:  Made Date control more readily extensible
+
 ### 1.0.30
 
 * Fixed:    Restored updateAvailableSelectionItemsEvent for selection controls
