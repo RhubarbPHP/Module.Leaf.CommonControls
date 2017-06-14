@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.32
+
+* Fixed:    disable hours and minutes when datetime control is disabled
+
 ### 1.0.31
 
 * Added:    DateTime control
