@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.33
+
+* Fixed:    output buffering issue in datetime control
+
 ### 1.0.32
 
 * Fixed:    disable hours and minutes when datetime control is disabled

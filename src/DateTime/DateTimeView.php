@@ -24,9 +24,15 @@ class DateTimeView extends DateView
         parent::printViewContent();
         $disabled = $this->isEnabled() ? '' : ' disabled';
         print <<<HTML
-        <select{$disabled} name="{$this->model->leafPath}_hour" id="{$this->model->leafPath}_hour">{$this->printHours()}</select>
-        <select{$disabled} name="{$this->model->leafPath}_minute" id="{$this->model->leafPath}_minute">{$this->printMinutes()}</select>
+        <select{$disabled} name="{$this->model->leafPath}_hour" id="{$this->model->leafPath}_hour">
 HTML;
+        $this->printHours();
+        print <<<HTML
+        </select>
+        <select{$disabled} name="{$this->model->leafPath}_minute" id="{$this->model->leafPath}_minute">
+HTML;
+        $this->printMinutes();
+        print '</select>';
     }
 
     protected function printHours()
