@@ -18,6 +18,8 @@ bridge.prototype.attachEvents = function () {
       this.yearDropDown.disabled = !this.enabledCheckbox.checked
       this.monthDropDown.disabled = !this.enabledCheckbox.checked
       this.dayDropDown.disabled = !this.enabledCheckbox.checked
+      this.hourDropDown.disabled = !this.enabledCheckbox.checked
+      this.minuteDropDown.disabled = !this.enabledCheckbox.checked
     }.bind(this)
   }
 }
