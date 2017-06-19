@@ -25,7 +25,7 @@ bridge.prototype.attachEvents = function () {
 }
 
 bridge.prototype.setValue = function (value) {
-  window.rhubarb.viewBridgeClasses.DateViewBridge.prototype.setValue.call(this)
+  window.rhubarb.viewBridgeClasses.DateViewBridge.prototype.setValue.call(this, value)
   var date = new Date(value)
 
   this.hourDropDown.value = date.getHours()
