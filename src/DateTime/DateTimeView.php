@@ -24,11 +24,11 @@ class DateTimeView extends DateView
         parent::printViewContent();
         $disabled = $this->isEnabled() ? '' : ' disabled';
         print <<<HTML
-        <select{$disabled} name="{$this->model->leafPath}_hour" id="{$this->model->leafPath}_hour">
+        &nbsp;&nbsp;<select{$disabled} name="{$this->model->leafPath}_hour" id="{$this->model->leafPath}_hour">
 HTML;
         $this->printHours();
         print <<<HTML
-        </select>
+        </select> :
         <select{$disabled} name="{$this->model->leafPath}_minute" id="{$this->model->leafPath}_minute">
 HTML;
         $this->printMinutes();
@@ -37,18 +37,20 @@ HTML;
 
     protected function printHours()
     {
-        $this->printSimpleOptions(0, 23, 'G');
+        $this->printSimpleOptions(0, 23, 'H', function ($value) {
+            return $this->timeFormatter($value);
+        });
     }
 
     protected function printMinutes()
     {
-        $date = $this->model->value;
-        $formattedDate = ($date != null) ? intval($date->format('i')) : null;
+        $this->printSimpleOptions(0, 59, 'i', function ($value) {
+            return $this->timeFormatter($value);
+        });
+    }
 
-        for ($minuteIterator = 0; $minuteIterator <= 59; $minuteIterator++) {
-            $selected = ($formattedDate == $minuteIterator) ? ' selected' : '';
-            print "<option value='{$minuteIterator}'{$selected}>{$minuteIterator}</option>";
-        }
+    private function timeFormatter($value) {
+        return str_pad($value, 2, 0, STR_PAD_LEFT);
     }
 
     protected function getValueClass()
