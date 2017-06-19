@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.0.34
+
+* Changed:  datetime control display
+* Fixed:    bug in datetime control viewbridge which prevented date setting
+
 ### 1.0.33
 
 * Fixed:    output buffering issue in datetime control
