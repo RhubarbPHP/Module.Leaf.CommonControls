@@ -110,14 +110,21 @@ class DateView extends ControlView
         $this->printSimpleOptions(1, 31, 'd');
     }
 
-    protected function printSimpleOptions($from, $to, $dateFormat)
+    /**
+     * @param int $from
+     * @param int $to
+     * @param string $dateFormat
+     * @param callable|null $decorator
+     */
+    protected function printSimpleOptions($from, $to, $dateFormat, $decorator = null)
     {
         $date = $this->model->value;
         $formattedDate = ($date != null) ? $date->format($dateFormat) : null;
 
         for ($unitIterator = $from; $unitIterator <= $to; $unitIterator++) {
             $selected = ($formattedDate == $unitIterator) ? ' selected' : '';
-            print "<option value='{$unitIterator}'{$selected}>{$unitIterator}</option>";
+            $displayValue = $decorator !== null ? $decorator($unitIterator) : $unitIterator;
+            print "<option value='{$unitIterator}'{$selected}>{$displayValue}</option>";
         }
     }
 
