@@ -31,13 +31,13 @@ class SelectionControlModel extends ControlModel
     /**
      * @var Event Raised when the selection control wants a refresh of available items.
      */
-    public $updateAvailableSelectionItems;
+    public $updateAvailableSelectionItemsEvent;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->updateAvailableSelectionItems = new Event();
+        $this->updateAvailableSelectionItemsEvent = new Event();
     }
 
     /**

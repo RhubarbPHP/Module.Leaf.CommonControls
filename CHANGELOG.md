@@ -1,8 +1,31 @@
 # Changelog
 
-### 1.0.34
+### 1.0.35
 
 * Added:    TextBoxViewBridge now provides means to do keyUp in the same pattern as keyPressed
+
+### 1.0.34
+
+* Changed:  datetime control display
+* Fixed:    bug in datetime control viewbridge which prevented date setting
+
+### 1.0.33
+
+* Fixed:    output buffering issue in datetime control
+
+### 1.0.32
+
+* Fixed:    disable hours and minutes when datetime control is disabled
+
+### 1.0.31
+
+* Added:    DateTime control
+* Changed:  Made Date control more readily extensible
+
+### 1.0.30
+
+* Fixed:    Restored updateAvailableSelectionItemsEvent for selection controls
+>>>>>>> 0a73196
 
 ### 1.0.29
 

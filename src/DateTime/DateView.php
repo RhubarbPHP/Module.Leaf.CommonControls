@@ -47,9 +47,9 @@ class DateView extends ControlView
     protected function printViewContent()
     {
         $disabled = '';
+
         if ($this->model->optional) {
-            $date = $this->model->value;
-            $checked = $date != null && $date->isValidDateTime();
+            $checked = $this->isEnabled();
             print '<input type="checkbox" name="'.$this->model->leafPath.'_enabled" id="'.$this->model->leafPath.'_enabled" value="1"'.($checked ? ' checked' : '').' />';
 
             $disabled = $checked ? '' : ' disabled';
@@ -61,9 +61,20 @@ class DateView extends ControlView
         <?php
     }
 
+    protected function isEnabled()
+    {
+        if ($this->model->optional) {
+            $date = $this->model->value;
+            return $date != null && $date->isValidDateTime();
+        }
+        return true;
+    }
+
     protected function parseRequest(WebRequest $request)
     {
         $path = $this->model->leafPath;
+
+        $valueClass = $this->getValueClass();
 
         $value = $request->post($path . "_day");
         if ($value !== null) {
@@ -71,25 +82,49 @@ class DateView extends ControlView
                 return null;
             }
 
-            $date = new RhubarbDate($request->post($path . "_year") . "-" . $request->post($path . "_month") . "-" . $request->post($path . "_day"));
+            $date = new $valueClass($this->createTimeStringFromRequest($request));
             $this->model->setValue($date);
         } else {
             $value = $request->post($path);
             if ($value !== null) {
-                $date = new RhubarbDate($value);
+                $date = new $valueClass($value);
                 $this->model->setValue($date);
             }
         }
     }
 
+    protected function getValueClass()
+    {
+        return RhubarbDate::class;
+    }
+
+    protected function createTimeStringFromRequest(WebRequest $request)
+    {
+        return $request->post($this->model->leafPath . '_year') . '-' .
+            $request->post($this->model->leafPath . '_month') . '-' .
+            $request->post($this->model->leafPath . '_day');
+    }
+
     private function printDays()
     {
-        $date = $this->model->value;
-        $day = ($date != null) ? $date->format("d") : null;
+        $this->printSimpleOptions(1, 31, 'd');
+    }
 
-        for ($i = 1; $i <= 31; $i++) {
-            $selected = ($day == $i) ? ' selected' : '';
-            print "<option value=\"$i\"$selected>$i</option>";
+    /**
+     * @param int $from
+     * @param int $to
+     * @param string $dateFormat
+     * @param callable|null $decorator
+     */
+    protected function printSimpleOptions($from, $to, $dateFormat, $decorator = null)
+    {
+        $date = $this->model->value;
+        $formattedDate = ($date != null) ? $date->format($dateFormat) : null;
+
+        for ($unitIterator = $from; $unitIterator <= $to; $unitIterator++) {
+            $selected = ($formattedDate == $unitIterator) ? ' selected' : '';
+            $displayValue = $decorator !== null ? $decorator($unitIterator) : $unitIterator;
+            print "<option value='{$unitIterator}'{$selected}>{$displayValue}</option>";
         }
     }
 
@@ -107,12 +142,6 @@ class DateView extends ControlView
 
     private function printYears()
     {
-        $date = $this->model->value;
-        $year = ($date != null) ? $date->format("Y") : null;
-
-        for ($i = $this->model->minYear; $i <= $this->model->maxYear; $i++) {
-            $selected = ($year == $i) ? ' selected' : '';
-            print "<option value=\"$i\"$selected>$i</option>";
-        }
+        $this->printSimpleOptions($this->model->minYear, $this->model->maxYear, 'Y');
     }
 }
