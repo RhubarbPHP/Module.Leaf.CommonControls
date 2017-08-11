@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.0.30
+### 1.0.31
 
 * Added:    TextBoxViewBridge now provides means to do keyUp in the same pattern as keyPressed
 
