@@ -18,6 +18,12 @@ bridge.spawn = function (spawnData, index, parentPresenterPath) {
     return textBox;
 };
 
+bridge.prototype.keyUp = function(event){
+  if (this.onKeyUp){
+    this.onKeyUp(event);
+  }
+};
+
 bridge.prototype.keyPressed = function(event){
     if (this.onKeyPress){
         this.onKeyPress(event);
@@ -35,6 +41,14 @@ bridge.prototype.attachDomChangeEventHandler = function (triggerChangeEvent) {
     else {
         // Be interested in a changed event if there is one.
         this.viewNode.addEventListener('keypress', self.keyPressed.bind(self), false);
+    }
+
+    if (!this.viewNode.addEventListener) {
+        this.viewNode.attachEvent("onkeyup", self.keyUp.bind(self));
+    }
+    else {
+        // Be interested in a changed event if there is one.
+        this.viewNode.addEventListener('keyup', self.keyUp.bind(self), false);
     }
 };
 

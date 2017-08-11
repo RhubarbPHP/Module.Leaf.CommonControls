@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.30
+
+* Added:    TextBoxViewBridge now provides means to do keyUp in the same pattern as keyPressed
+
 ### 1.0.29
 
 * Fix:	    Missing upload model property
