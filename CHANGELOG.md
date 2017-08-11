@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.35
+
+* Fixed:    TextBoxViewBridge supports onkeyup
+
 ### 1.0.34
 
 * Changed:  datetime control display
