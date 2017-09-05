@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.36
+
+* Added:    Disabling radio buttons is now a thing
+
 ### 1.0.35
 
 * Added:    TextBoxViewBridge now provides means to do keyUp in the same pattern as keyPressed
