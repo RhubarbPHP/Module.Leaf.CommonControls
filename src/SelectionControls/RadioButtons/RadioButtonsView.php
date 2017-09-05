@@ -35,7 +35,13 @@ class RadioButtonsView extends SetSelectionControlView
             $checked = ' checked="checked"';
         }
 
-        return '<input type="radio" name="' . htmlentities($this->model->leafPath) . '" value="' . htmlentities(
+        if ($this->model->disabled) {
+            $disabled = 'disabled="disabled"';
+        } else {
+            $disabled = '';
+        }
+
+        return '<input ' . $disabled . ' type="radio" name="' . htmlentities($this->model->leafPath) . '" value="' . htmlentities(
             $value
         ) . '" id="' . htmlentities($this->getInputId($name, $value)) . '"' . $checked . '>';
     }
