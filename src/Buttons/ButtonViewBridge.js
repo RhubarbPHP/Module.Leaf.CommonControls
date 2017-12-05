@@ -24,6 +24,32 @@ button.prototype.attachEvents = function () {
 
     this.viewNode.addEventListener('click',function(event) {
 
+        if (self.model.validationTree){
+            var validations = [];
+            var eventHost = self.findEventHost();
+
+            for(var i = 0; i < self.model.validationTree.length; i++){
+                var validationExpression = self.model.validationTree[i];
+                var validation = new rhubarb.validation.validator();
+
+                var controlViewBridge = eventHost.findViewBridge(validationExpression.key);
+
+                validation.require()
+                          .check(validationExpression.function)
+                          .setSource(rhubarb.validation.sources.fromViewBridge(controlViewBridge))
+                          .setTargetElement(controlViewBridge.leafPath + "_validation");
+
+                validations.push(validation);
+            }
+
+            var allValid = new rhubarb.validation.validator();
+            allValid.check(rhubarb.validation.common.allValid(validations));
+            if (!allValid.validate()){
+                event.preventDefault();
+                return false;
+            }
+        }
+
         if (self.confirmMessage) {
             if (!confirm(self.confirmMessage)) {
                 event.preventDefault();

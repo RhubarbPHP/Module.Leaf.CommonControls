@@ -29,10 +29,22 @@ class ButtonModel extends ControlModel
      */
     public $type = 'submit';
 
+    public $validationTree = null;
+
     public function __construct()
     {
         $this->buttonPressedEvent = new Event();
 
         parent::__construct();
     }
+
+    protected function getExposableModelProperties()
+    {
+        $list = parent::getExposableModelProperties();
+        $list[] = "validationTree";
+
+        return $list;
+    }
+
+
 }

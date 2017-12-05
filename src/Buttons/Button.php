@@ -4,6 +4,8 @@ namespace Rhubarb\Leaf\Controls\Common\Buttons;
 
 use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Controls\Control;
+use Rhubarb\Stem\Models\Validation\Validation;
+use Rhubarb\Validation\ValidationTree;
 
 /**
  * The Button leaf is used to raise action events.
@@ -41,6 +43,11 @@ class Button extends Control
     public function setConfirmMessage($confirmMessage)
     {
         $this->model->confirmMessage = $confirmMessage;
+    }
+
+    public function setValidation(ValidationTree $validationTree)
+    {
+        $this->model->validationTree = $validationTree->asJavascriptObject();
     }
 
     protected function getViewClass()
