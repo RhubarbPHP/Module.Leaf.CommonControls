@@ -34,7 +34,6 @@ class ButtonView extends ControlView
         foreach($postData as $key => $value){
             if (preg_match("/".$this->model->leafPath."\(([^)]+)\)$/", $key, $match)){
                 if ($value != null){
-                    if ($this->model)
                     $this->model->buttonPressedEvent->raise($match[1]);
                 }
             }

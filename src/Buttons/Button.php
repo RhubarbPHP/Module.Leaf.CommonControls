@@ -47,7 +47,7 @@ class Button extends Control
 
     public function setValidation(ValidationTree $validationTree)
     {
-        $this->model->validationTree = $validationTree->asJavascriptObject();
+        $this->model->validationTree = $validationTree;
     }
 
     protected function getViewClass()
@@ -73,6 +73,11 @@ class Button extends Control
                 return $this->buttonPressedEvent->raise(...$arguments);
             } else {
                 $this->runBeforeRender(function () use ($arguments) {
+
+                    if ($this->model->validationTree){
+
+                    }
+
                     $this->buttonPressedEvent->raise(...$arguments);
                 });
             }
