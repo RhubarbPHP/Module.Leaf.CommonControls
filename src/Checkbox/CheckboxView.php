@@ -27,7 +27,7 @@ class CheckboxView extends ControlView
      */
     private function getPresenceInputName()
     {
-        return "set_{$this->model->leafPath}_";
+        return 'set_' . $this->model->leafPath;
     }
 
     /**
@@ -71,12 +71,13 @@ class CheckboxView extends ControlView
         // update our model.
 
         $postData = $request->postData;
-
+        $checked = [];
         foreach ($postData as $key => $value) {
-            if (preg_match("/" . $path . "\(([^)]+)\)$/", $key, $match)) {
+            if (preg_match("/^" . $path . "\((.+?)\)$/", $key, $match)) {
+                $checked[] = $match[1];
                 $this->setControlValueForIndex($match[1], true);
             } else {
-                if (preg_match("/" . $this->getPresenceInputName() . "\(([^)]+)\)$/", $key, $match)) {
+                if (preg_match("/^" . $this->getPresenceInputName() . "\((.+?)\)$/", $key, $match) && !in_array($match[1], $checked)) {
                     $this->setControlValueForIndex($match[1], false);
                 }
             }

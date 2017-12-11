@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.37
+
+* Fixed:    Bug where checkboxes printed with index didn't send false when they were unchecked.  
+
 ### 1.0.36
 
 * Added:    Disabling radio buttons is now a thing
