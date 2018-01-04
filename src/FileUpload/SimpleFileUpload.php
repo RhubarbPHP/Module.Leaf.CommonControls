@@ -135,7 +135,8 @@ class SimpleFileUpload extends Control
             }
 
             if (preg_match('/\(([^)]+)\)/', $leafPath, $match)) {
-                $this->setIndex($match[1]);
+                $this->model->leafIndex = $match[1];
+                $this->model->updatePath();
             }
 
             if (isset($fileData["name"]) && $fileData["name"] != '') {
