@@ -63,6 +63,10 @@ class Button extends Control
         $model = new ButtonModel();
         $model->buttonPressedEvent->attachHandler(function (...$arguments) {
             if ($this->model->useXhr) {
+                if ($this->model->leafIndex){
+                    array_splice($arguments, 0, 0, [$this->model->leafIndex]);
+                }
+
                 return $this->buttonPressedEvent->raise(...$arguments);
             } else {
                 $this->runBeforeRender(function () use ($arguments) {
