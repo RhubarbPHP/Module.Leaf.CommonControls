@@ -27,6 +27,9 @@ button.prototype.attachEvents = function () {
         if (self.confirmMessage) {
             if (!confirm(self.confirmMessage)) {
                 event.preventDefault();
+
+                self.raiseClientEvent("ButtonPressCancelled");
+
                 return false;
             }
         }

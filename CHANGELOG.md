@@ -4,6 +4,10 @@
 
 * Fixed:    Fix for leafIndex path updating.
 
+### 1.0.38
+
+* Added:    ButtonPressedCancelled client event added to Button
+
 ### 1.0.37
 
 * Fixed:    Bug where checkboxes printed with index didn't send false when they were unchecked.  
