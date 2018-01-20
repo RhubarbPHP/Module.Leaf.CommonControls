@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.0.38
+### 1.0.39
 
 * Fixed:    Fix for leafIndex path updating.
 
