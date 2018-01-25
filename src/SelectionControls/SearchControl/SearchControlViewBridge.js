@@ -164,7 +164,7 @@ searchControl.prototype.attachEvents = function () {
             if (self.hasKeyboardSelection()) {
                 self.keyboardSelect();
             }
-            else {
+            else if (this.value !== '') {
                 self.submitSearch();
             }
 
