@@ -164,7 +164,7 @@ searchControl.prototype.attachEvents = function () {
             if (self.hasKeyboardSelection()) {
                 self.keyboardSelect();
             }
-            else {
+            else if (this.value !== '') {
                 self.submitSearch();
             }
 
@@ -248,6 +248,9 @@ searchControl.prototype.keyboardSelect = function () {
 };
 
 searchControl.prototype.keyboardUp = function () {
+    if(this._state !== 'searched') {
+        return;
+    }
     this.keyboardSelection--;
 
     if (this.keyboardSelection < -1) {
@@ -258,6 +261,9 @@ searchControl.prototype.keyboardUp = function () {
 };
 
 searchControl.prototype.keyboardDown = function () {
+    if(this._state !== 'searched') {
+        return;
+    }
     this.keyboardSelection++;
 
     if (this.keyboardSelection >= this.searchResults.length) {
