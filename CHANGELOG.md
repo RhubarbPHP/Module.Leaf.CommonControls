@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.40
+
+* Fixed:   Suppressed keyboard actions for closed search controls 
+
 ### 1.0.39
 
 * Fixed:    Fix for leafIndex path updating.
@@ -41,7 +45,6 @@
 ### 1.0.30
 
 * Fixed:    Restored updateAvailableSelectionItemsEvent for selection controls
->>>>>>> 0a73196
 
 ### 1.0.29
 
