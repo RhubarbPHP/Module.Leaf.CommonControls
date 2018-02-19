@@ -25,7 +25,7 @@ class CheckboxView extends ControlView
     /**
      * @return string
      */
-    private function getPresenceInputName()
+    protected function getPresenceInputName()
     {
         return 'set_' . $this->model->leafPath;
     }

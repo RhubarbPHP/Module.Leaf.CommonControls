@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.41
+
+* Fixed:   Function with private access made protected
+
 ### 1.0.40
 
 * Fixed:   Suppressed keyboard actions for closed search controls 
