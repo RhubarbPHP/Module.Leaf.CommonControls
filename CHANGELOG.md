@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.1.0
+
+* Added:    getDefaultDoubleClickPreventor added to ButtonViewBridge as a pattern for implementing
+            double button push prevention.
+
 ### 1.0.41
 
 * Fixed:   Function with private access made protected
