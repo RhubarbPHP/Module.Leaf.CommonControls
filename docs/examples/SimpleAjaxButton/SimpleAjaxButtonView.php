@@ -3,6 +3,7 @@
 namespace Rhubarb\Leaf\Controls\Common\Examples\SimpleAjaxButton;
 
 use Rhubarb\Leaf\Controls\Common\Buttons\Button;
+use Rhubarb\Leaf\Leaves\LeafDeploymentPackage;
 use Rhubarb\Leaf\Views\View;
 
 class SimpleAjaxButtonView extends View
@@ -23,10 +24,7 @@ class SimpleAjaxButtonView extends View
 
     protected function printViewContent()
     {
-        parent::printViewContent();
-
         print '<span id="simple-ajax-button-span">This text should change when you click the Ajax Button below</span>';
-
         print $this->leaves["SimpleAjaxButton"];
     }
 
@@ -37,10 +35,6 @@ class SimpleAjaxButtonView extends View
 
     public function getDeploymentPackage()
     {
-        $package = parent::getDeploymentPackage();
-
-        $package->resourcesToDeploy[] = __DIR__ . "/" . $this->getViewBridgeName() . ".js";
-
-        return $package;
+        return new LeafDeploymentPackage(__DIR__ . "/SimpleAjaxButtonViewBridge.js");
     }
 }
