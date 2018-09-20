@@ -1,5 +1,9 @@
 # Changelog
 
+### next
+
+* Fixed:    Option groups for selection controls now fixed and supports same options as main list.
+
 ### 1.1.0
 
 * Added:    getDefaultDoubleClickPreventor added to ButtonViewBridge as a pattern for implementing

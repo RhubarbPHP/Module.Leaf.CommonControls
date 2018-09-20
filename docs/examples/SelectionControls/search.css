@@ -1,0 +1,12 @@
+.results.drop-down {
+    background: white;
+    border: 1px solid #999;
+}
+
+.results-list tr td {
+    padding: 4px;
+}
+
+.results-list tr.active {
+    background: lightblue;
+}

@@ -4,11 +4,14 @@
     . PasswordTextBox: text/password-textbox
 
 . Selection Controls:
-    . The selection control pattern: selection/
-    . DropDown: selection/drop-down
-    . CheckSet: selection/check-set
-    . RadioButtons: selection/radio-buttons
-    . SearchControl: selection/search-control
+    . The selection control pattern: selection/index
+    . Standard Variants
+        . DropDown: selection/drop-down
+        . CheckSet: selection/check-set
+        . RadioButtons: selection/radio-buttons
+        . SearchControl: selection/search-control
+    . Attaching additional data: selection/attached-data
+    . Dynamically driving the available items
 
 . File Uploads:
     . SimpleFileUpload: file/simple

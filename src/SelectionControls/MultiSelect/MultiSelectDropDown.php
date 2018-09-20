@@ -4,7 +4,7 @@ namespace Rhubarb\Leaf\Controls\Common\SelectionControls\MultiSelect;
 
 use Rhubarb\Leaf\Controls\Common\SelectionControls\DropDown\DropDown;
 
-class MultiSelect extends DropDown
+class MultiSelectDropDown extends DropDown
 {
     protected function supportsMultipleSelection()
     {

@@ -38,6 +38,14 @@ class SelectionControl extends Control
      */
     protected $model;
 
+    /**
+     * The configured selection items
+     *
+     * @var array
+     */
+    protected $selectionItems = [];
+
+
     protected function createModel()
     {
         return new SelectionControlModel();
@@ -48,79 +56,95 @@ class SelectionControl extends Control
         parent::onModelCreated();
 
         $this->model->supportsMultipleSelection = $this->supportsMultipleSelection();
-        $this->model->updateAvailableSelectionItemsEvent->attachHandler(function () {
-            $args = func_get_args();
-
-            call_user_func_array([$this, "updateAvailableSelectionItems"], $args);
+        $this->model->updateAvailableSelectionItemsEvent->attachHandler(function (...$args) {
+            $this->updateAvailableSelectionItems(...$args);
 
             return $this->getCurrentlyAvailableSelectionItems();
         });
     }
 
-
-    protected $selectionItems = [];
-
+    /**
+     * Returns the list of configured selection items
+     *
+     * @return array
+     */
     public function getSelectionItems()
     {
         return $this->selectionItems;
     }
 
-    protected function getCurrentlyAvailableSelectionItems()
+    private function arrayToItems($array)
     {
-        $totalItems = [];
-        $selectionItems = $this->getSelectionItems();
+        $items = [];
 
-        foreach ($selectionItems as $group => $item) {
-            $items = [];
+        foreach ($array as $key => $item) {
 
-            if ($item instanceof Collection) {
-                foreach ($item as $key => $model) {
-                    $items[] = $this->makeItem($this->getValueForItem($key), $model->getLabel(), $this->getDataForItem($model));
-                }
-            } elseif ($item instanceof MySqlEnumColumn) {
-                $enumValues = $item->enumValues;
+            if (is_string($key)){
+                $nestedItems = $this->arrayToItems($item);
 
-                foreach ($enumValues as $enumValue) {
-                    $items[] = $this->makeItem($enumValue, $enumValue);
-                }
-            } elseif (is_array($item)) {
-                if (count($item) > 0) {
-                    if (is_array($item[0])) {
-                        foreach ($item as $subItem) {
-                            $value = $subItem[0];
-                            $label = (sizeof($subItem) == 1) ? $subItem[0] : $subItem[1];
+                $item = $this->makeItem("", $key);
+                $item->Children = $nestedItems;
 
-                            $data = (sizeof($subItem) > 2) ? $subItem[2] : [];
+                $items[] = $item;
+            } else {
+
+                if ($item instanceof Collection) {
+                    foreach ($item as $key => $model) {
+                        $items[] = $this->makeItem($this->getValueForItem($key), $model->getLabel(), $this->getDataForItem($model));
+                    }
+                } elseif ($item instanceof MySqlEnumColumn) {
+                    $enumValues = $item->enumValues;
+
+                    foreach ($enumValues as $enumValue) {
+                        $items[] = $this->makeItem($enumValue, $enumValue);
+                    }
+                } elseif (is_array($item)) {
+                    if (count($item) > 0) {
+                        if (is_array($item[0])) {
+                            foreach ($item as $subItem) {
+                                $value = $subItem[0];
+                                $label = (sizeof($subItem) == 1) ? $subItem[0] : $subItem[1];
+
+                                $data = (sizeof($subItem) > 2) ? $subItem[2] : [];
+
+                                $items[] = $this->makeItem($value, $label, $data);
+                            }
+                        } else {
+                            $value = $item[0];
+                            $label = (sizeof($item) == 1) ? $item[0] : $item[1];
+
+                            $data = (sizeof($item) > 2) ? $item[2] : [];
 
                             $items[] = $this->makeItem($value, $label, $data);
                         }
-                    } else {
-                        $value = $item[0];
-                        $label = (sizeof($item) == 1) ? $item[0] : $item[1];
-
-                        $data = (sizeof($item) > 2) ? $item[2] : [];
-
-                        $items[] = $this->makeItem($value, $label, $data);
                     }
+                } else {
+                    $items[] = $this->makeItem($item, $item);
                 }
-            } else {
-                $items[] = $this->makeItem($item, $item);
-            }
-
-            if (is_numeric($group)) {
-                $totalItems = array_merge($totalItems, $items);
-            } else {
-                $groupItem = $this->makeItem("", $group);
-                $groupItem->Children = $items;
-
-                $totalItems[] = $groupItem;
             }
         }
 
-        return $totalItems;
+        return $items;
     }
 
+    /**
+     * Inflates the configured selection items into their real concrete item objects.
+     *
+     * @return array
+     */
+    protected function getCurrentlyAvailableSelectionItems()
+    {
+        $selectionItems = $this->getSelectionItems();
 
+        return $this->arrayToItems($selectionItems);
+    }
+
+    /**
+     * Receives an array specifying the item sources for this control.
+     *
+     * @param array $items
+     * @return $this
+     */
     public function setSelectionItems(array $items)
     {
         $this->selectionItems = $items;
@@ -183,10 +207,11 @@ class SelectionControl extends Control
     }
 
     /**
-     * If your selection control presenter works with models, this function should return
+     * If your selection control works with models, this function should return
      * the appropriate model for a selected value.
      *
      * @param $value
+     * @return mixed
      */
     protected function convertValueToModel($value)
     {
