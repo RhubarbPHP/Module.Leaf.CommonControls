@@ -10,7 +10,7 @@
         . CheckSet: selection/check-set
         . RadioButtons: selection/radio-buttons
         . SearchControl: selection/search-control
-        . ModelSearchControl: /manual/module.leaf.modelsearchcontrol/index
+        . ModelSearchControl: /manual/module.leaf.modelselectioncontrols/index
     . Attaching additional data: selection/attached-data
     . Dynamically driving the available items
 
