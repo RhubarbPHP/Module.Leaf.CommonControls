@@ -89,8 +89,11 @@ class SelectionControl extends Control
             } else {
 
                 if ($item instanceof Collection) {
-                    foreach ($item as $key => $model) {
-                        $items[] = $this->makeItem($this->getValueForItem($key), $model->getLabel(), $this->getDataForItem($model));
+                    foreach ($item as $model) {
+                        /**
+                         * @var Model $model
+                         */
+                        $items[] = $this->makeItem($model->getUniqueIdentifier(), $model->getLabel(), $model->exportPublicData());
                     }
                 } elseif ($item instanceof MySqlEnumColumn) {
                     $enumValues = $item->enumValues;
@@ -159,20 +162,7 @@ class SelectionControl extends Control
         return false;
     }
 
-    /**
-     * Override this function to get a label for a selected item.
-     *
-     * This is normally only called for the initial render of the page as during searching the labels are already
-     * available. Also there is no sensible default implementation for this function as the meaning of $item
-     * is known only to the overriding class.
-     *
-     * @param $item
-     * @return string
-     */
-    protected function getLabelForItem($item)
-    {
-        return "";
-    }
+
 
     protected function updateAvailableSelectionItems($itemId)
     {
@@ -180,21 +170,18 @@ class SelectionControl extends Control
     }
 
     /**
-     * Override this function to get the data associated with a selected model item.
+     * Override this function to provide a populated item for a given value.
      *
-     * By default this will use all the public data however for efficiency you can return a specific
-     * array of values.
+     * On render a search control may need to represent a bound value as a selected item which is not
+     * in the current list of available items. Rather than loose the value we try to preserve it by
+     * adding the selected item to the list.
      *
-     * @param $item
-     * @return string[]
+     * @param mixed $value
+     * @return \stdClass
      */
-    protected function getDataForItem($item)
+    protected function makeItemForValue($value)
     {
-        if ($item instanceof Model) {
-            return $item->exportPublicData();
-        }
-
-        return [];
+        return $this->makeItem($value, "", []);
     }
 
     protected function isValueSelectable($value)
@@ -204,18 +191,6 @@ class SelectionControl extends Control
         }
 
         return true;
-    }
-
-    /**
-     * If your selection control works with models, this function should return
-     * the appropriate model for a selected value.
-     *
-     * @param $value
-     * @return mixed
-     */
-    protected function convertValueToModel($value)
-    {
-        return $value;
     }
 
     public function setSelectedItems($rawItems)
@@ -242,11 +217,7 @@ class SelectionControl extends Control
             if ($value === 0 || $value === "0") {
                 $item = $this->makeItem($value, "", []);
             } else {
-                if (!$value instanceof Model) {
-                    $value = $this->convertValueToModel($value);
-                }
-
-                $item = $this->makeItem($this->getValueForItem($value), $this->getLabelForItem($value), $this->getDataForItem($value));
+                $item = $this->makeItemForValue($value);
             }
 
             $selectedItems[] = $item;
@@ -254,11 +225,6 @@ class SelectionControl extends Control
 
         $this->model->value = $selectedItems;
         $this->model->selectedItems = $selectedItems;
-    }
-
-    protected function getValueForItem($value)
-    {
-        return ($value instanceof Model) ? $value->UniqueIdentifier : $value;
     }
 
     public function setValue($bindingValue)

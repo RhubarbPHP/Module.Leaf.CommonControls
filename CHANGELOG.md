@@ -1,7 +1,8 @@
 # Changelog
 
-### next
+### 1.1.1
 
+* Changed:  Simplified pattern of getting items for selection controls from their values.
 * Fixed:    Option groups for selection controls now fixed and supports same options as main list.
 
 ### 1.1.0
