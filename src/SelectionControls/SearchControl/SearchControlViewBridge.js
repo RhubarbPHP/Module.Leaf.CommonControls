@@ -176,10 +176,12 @@ searchControl.prototype.attachEvents = function () {
     this.phraseBox.addEventListener('keydown', function (e) {
         if (e.keyCode == 38) {
             self.keyboardUp();
+            e.preventDefault();
             return false;
         }
 
         if (e.keyCode == 40) {
+            e.preventDefault();
             self.keyboardDown();
             return false;
         }
@@ -308,7 +310,6 @@ searchControl.prototype.updateUiState = function () {
         case "searching":
             this.phraseBox.classList.add("phrase-box-searching");
             this.phraseBox.style.display = 'block';
-            this.resultsContainer.style.display = 'block';
             break;
         case "searched":
             this.phraseBox.style.display = 'block';

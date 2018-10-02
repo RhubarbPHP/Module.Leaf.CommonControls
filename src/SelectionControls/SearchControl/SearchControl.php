@@ -78,12 +78,7 @@ abstract class SearchControl extends SelectionControl
         });
 
         $model->getItemForSingleValueEvent->attachHandler(function($value){
-            $value = $this->convertValueToModel($value);
-            $optionValue = ($value instanceof Model) ? $value->UniqueIdentifier : $value;
-
-            $item = $this->makeItem($optionValue, $this->getLabelForItem($value), $this->getDataForItem($value));
-
-            return $item;
+            return $this->makeItemForValue($value);
         });
     }
 

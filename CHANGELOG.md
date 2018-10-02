@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.2
+
+* Fixed:    Search control: up and down arrows now preventDefault to stop the cursor moving
+
 ### 1.1.1
 
 * Changed:  Simplified pattern of getting items for selection controls from their values.
