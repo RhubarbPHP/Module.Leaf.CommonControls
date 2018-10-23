@@ -162,9 +162,16 @@ class SelectionControl extends Control
         return false;
     }
 
-
-
-    protected function updateAvailableSelectionItems($itemId)
+    /**
+     * Called when the view bridge wants to signal the list of items should be refined.
+     *
+     * It would be normal here to simply call setSelectionItems() with a new configuration
+     * of items.
+     *
+     * @param $param string The principle argument to refine using
+     * @param array $params Any number of arguments can be passed.
+     */
+    protected function updateAvailableSelectionItems($param, ...$params)
     {
 
     }

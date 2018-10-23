@@ -91,6 +91,19 @@ dropDown.prototype.setCurrentlyAvailableSelectionItems = function (items) {
     }
 
     this.viewNode.value = oldValue;
+    var itemSelected = false;
+    for(var j = 0; j < this.viewNode.options.length; j++){
+        if (this.viewNode.options[j].selected){
+            itemSelected = true;
+            break;
+        }
+    }
+
+    if (!itemSelected){
+        if (this.viewNode.options.length > 0){
+            this.viewNode.value = this.viewNode.options[0].value;
+        }
+    }
 };
 
 window.rhubarb.viewBridgeClasses.DropDownViewBridge = dropDown;

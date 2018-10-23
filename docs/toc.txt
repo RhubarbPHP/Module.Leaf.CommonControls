@@ -12,7 +12,7 @@
         . SearchControl: selection/search-control
         . ModelSearchControl: /manual/module.leaf.modelselectioncontrols/index
     . Attaching additional data: selection/attached-data
-    . Dynamically driving the available items
+    . Dynamically driving the available items: selection/dynamic
 
 . File Uploads:
     . SimpleFileUpload: file/simple

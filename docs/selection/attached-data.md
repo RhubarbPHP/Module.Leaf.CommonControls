@@ -45,3 +45,14 @@ The model's UniqueIdentifier and label column name are public by default.
 
 ## Using the attached data
 
+Like any control a selection control has a `getValue()` function that returns the value
+of the selected item. To get the attached data you need access to the full item structure.
+Use `getSelectedItems()` to fetch the full list of selected items and from there you can
+simply access the data:
+
+````js
+var items = this.findChildViewBridge('customer').getSelectedItems();
+if (items.length > 0){
+    alert(items[0].data.FirstName);
+}
+````
