@@ -95,6 +95,8 @@ class SelectionControl extends Control
                          */
                         $items[] = $this->makeItem($model->getUniqueIdentifier(), $model->getLabel(), $model->exportPublicData());
                     }
+                } elseif ($item instanceof Model) {
+                    $items[] = $this->makeItem($item->getUniqueIdentifier(), $item->getLabel(), $item->exportPublicData());
                 } elseif ($item instanceof MySqlEnumColumn) {
                     $enumValues = $item->enumValues;
 
