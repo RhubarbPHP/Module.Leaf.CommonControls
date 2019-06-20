@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.4  
+
+* Added:    Support for Collections being provided inside a nested Item
+
 ### 1.1.3
 
 * Added:    Documentation on dynamically updating selection control items.
