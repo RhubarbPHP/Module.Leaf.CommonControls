@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.5
+
+* Fixed:    Fixed option groups when the keys are numbers presenting as strings.
+
 ### 1.1.4  
 
 * Added:    Support for Collections being provided inside a nested Item

@@ -18,6 +18,7 @@
 
 namespace Rhubarb\Leaf\Controls\Common\SelectionControls;
 
+use ArrayAccess;
 use Rhubarb\Crown\Context;
 use Rhubarb\Leaf\Leaves\Controls\Control;
 use Rhubarb\Leaf\Presenters\Controls\ControlPresenter;
@@ -79,7 +80,7 @@ class SelectionControl extends Control
 
         foreach ($array as $key => $item) {
 
-            if (is_string($key)){
+            if (is_string($key) && !is_numeric($key)){
                 $nestedItems = $this->arrayToItems($item);
 
                 $item = $this->makeItem("", $key);
