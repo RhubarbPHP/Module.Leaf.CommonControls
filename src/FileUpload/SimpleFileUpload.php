@@ -82,8 +82,9 @@ class SimpleFileUpload extends Control
 
             if (isset($fileData["name"]) && $fileData["name"] != '') {
                 if ($fileData["error"] == UPLOAD_ERR_OK) {
+                    $sanitisedFileName = filter_var($fileData["name"], FILTER_SANITIZE_STRING);
                     $response = $this->fileUploadedEvent->raise(
-                        new UploadedFileDetails($fileData["name"], $fileData["tmp_name"]),
+                        new UploadedFileDetails($sanitisedFileName, $fileData["tmp_name"]),
                         $this->model->leafIndex
                     );
                 } else {
@@ -141,8 +142,9 @@ class SimpleFileUpload extends Control
 
             if (isset($fileData["name"]) && $fileData["name"] != '') {
                 if ($fileData["error"] == UPLOAD_ERR_OK) {
+                    $sanitisedFileName = filter_var($fileData["name"], FILTER_SANITIZE_STRING);
                     $response = $this->fileUploadedEvent->raise(
-                        new UploadedFileDetails($fileData["name"], $fileData["tmp_name"]),
+                        new UploadedFileDetails($sanitisedFileName, $fileData["tmp_name"]),
                         $this->model->leafIndex
                     );
                 } else {

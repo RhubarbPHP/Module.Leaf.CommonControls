@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0
+
+* Added:    Filename sanitisation for SimpleFileUpload. 
+
 ### 1.1.5
 
 * Fixed:    Fixed option groups when the keys are numbers presenting as strings.
