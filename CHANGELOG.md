@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.2.0
+### 1.1.6
 
 * Added:    Filename sanitisation for SimpleFileUpload. 
 
